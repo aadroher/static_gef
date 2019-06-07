@@ -4,9 +4,12 @@
   },
   "parserOptions": {
     "ecmaVersion": 2018,
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
-  "extends": ["prettier"],
+  "extends": ["prettier", "prettier/react"],
   "plugins": ["prettier"],
   "rules": {
     "import/no-extraneous-dependencies": [0],
