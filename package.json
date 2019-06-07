@@ -1,15 +1,24 @@
 {
+  "type": "module",
   "name": "static_gef",
   "version": "1.0.0",
   "description": "Static version of GEF",
   "main": "index.js",
   "scripts": {
+    "scrap": "node --experimental-modules src/scrap.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Armand Adroher",
   "license": "ISC",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
     "eslint": "^5.16.0",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "turndown": "^5.0.3"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "prettier": "^1.17.1"
   }
 }
