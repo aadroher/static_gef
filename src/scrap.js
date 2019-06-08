@@ -3,6 +3,10 @@ import path from 'path';
 import fetch from 'node-fetch';
 import cheerio from 'cheerio';
 import TurdownService from 'turndown';
+import moment from 'moment';
+import yaml from 'yaml';
+import caseFormater from 'case';
+import unidecode from 'unidecode';
 
 const baseUrl = 'https://www.grupdestudisfenomenologics.org';
 
@@ -120,10 +124,24 @@ const saveFile = ({ filePath, contents }) =>
     });
   });
 
-const saveActivities = activities => {
-  const filePath = '/data/raw/activities.json';
-  const contents = JSON.stringify(activities, null, 2);
-  return saveFile({ filePath, contents });
+const saveActivity = async ({ title, createdAt, body }) => {
+  const frontMatter = `---\n${yaml.stringify({ title })}---`;
+  const fileContents = `${frontMatter}\n\n${body}`;
+  console.log(fileContents);
+  const filePathPrefix = '/data/collections/activities/';
+  const formatedCreatedAt = moment(createdAt).format('YYYY-MM-DD');
+  const kebabedTitle = `${unidecode(caseFormater.kebab(title))}.md`;
+  const filePath = `${filePathPrefix}${formatedCreatedAt}-${kebabedTitle}`;
+  console.log(filePath);
+  return saveFile({ filePath, contents: fileContents });
+};
+
+const saveActivities = async activitiesData => {
+  const activitiesDataFilePath = '/data/pages/activities.json';
+  const contents = JSON.stringify(activitiesData, null, 2);
+  const { activities } = activitiesData;
+  await Promise.all(activities.map(saveActivity));
+  return saveFile({ filePath: activitiesDataFilePath, contents });
 };
 
 getActivities()
