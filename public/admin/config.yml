@@ -1,3 +1,21 @@
 backend:
-  name: git-gateway
+  name: gitlab
+  repo: aadroher/gef
+  auth_type: implicit
+  app_id: 6a0450f42ec3213087bc3459fe4695ffb11e77e9aac312228dd95eab95197acc
   branch: master
+media_folder: "static/images/uploads"
+public_folder: "/images/uploads"
+collections:
+  - name: "activities"
+    label: "Activities"
+    folder: "data/collections/activities"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - label: "Title"
+        name: "title"
+        widget: "string"
+      - label: "Body"
+        name: "body"
+        widget: "markdown"
