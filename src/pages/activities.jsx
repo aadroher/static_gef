@@ -1,18 +1,8 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import styled from 'styled-components';
 
-const Activity = ({
-  node: {
-    childMarkdownRemark: {
-      frontmatter: { title },
-    },
-  },
-}) => (
-  <div>
-    <h3>{title}</h3>
-  </div>
-);
+import Activity from '../components/Activity';
+import MainLayout from '../layouts/MainLayout';
 
 const Activities = ({
   data: {
@@ -27,14 +17,6 @@ const Activities = ({
       ))}
     </div>
   </div>
-);
-
-const MainContainer = styled.div`
-  background-color: transparent;
-`;
-
-const MainLayout = ({ children }) => (
-  <MainContainer className="main-container">{children}</MainContainer>
 );
 
 const ActivitiesPage = props => (
