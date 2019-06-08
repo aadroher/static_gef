@@ -1,18 +1,44 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 
-const Activities = ({ data }) => (
+const Activities = ({
+  data: {
+    allFile: { edges },
+  },
+}) => (
   <div className="page-container">
     <h1>Activitats</h1>
-    <p>{data.site.siteMetadata.description}</p>
+    <div>
+      {edges.map(
+        ({
+          node: {
+            childMarkdownRemark: {
+              frontmatter: { title },
+            },
+          },
+        }) => (
+          <div>
+            <h3>{title}</h3>
+          </div>
+        )
+      )}
+    </div>
   </div>
 );
 
 export const query = graphql`
   query ActivitiesQuery {
-    site {
-      siteMetadata {
-        description
+    allFile(filter: { extension: { eq: "md" } }) {
+      edges {
+        node {
+          id
+          childMarkdownRemark {
+            frontmatter {
+              title
+            }
+            html
+          }
+        }
       }
     }
   }
