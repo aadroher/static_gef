@@ -1,10 +1,28 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 
-const Activities = ({ data }) => (
+const Activities = ({
+  data: {
+    allFile: { edges },
+  },
+}) => (
   <div className="page-container">
     <h1>Activitats</h1>
-    <p>{JSON.stringify(data, null, 2)}</p>
+    <div>
+      {edges.map(
+        ({
+          node: {
+            childMarkdownRemark: {
+              frontmatter: { title },
+            },
+          },
+        }) => (
+          <div>
+            <h3>{title}</h3>
+          </div>
+        )
+      )}
+    </div>
   </div>
 );
 
@@ -15,6 +33,9 @@ export const query = graphql`
         node {
           id
           childMarkdownRemark {
+            frontmatter {
+              title
+            }
             html
           }
         }
