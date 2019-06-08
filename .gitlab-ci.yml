@@ -5,7 +5,6 @@ pages:
   script:
     - npm install
     - npx gatsby --verbose build
-    - ls -la public
   artifacts:
     paths:
       - public
