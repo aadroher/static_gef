@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import styled from 'styled-components';
 
 const Activity = ({
   node: {
@@ -18,7 +19,7 @@ const Activities = ({
     allFile: { edges },
   },
 }) => (
-  <div className="page-container">
+  <div className="activities-page">
     <h1>Activitats</h1>
     <div>
       {edges.map(edge => (
@@ -28,7 +29,19 @@ const Activities = ({
   </div>
 );
 
-const MainLayout = ({ children }) => <div className="main-layout"></div>;
+const MainContainer = styled.div`
+  background-color: transparent;
+`;
+
+const MainLayout = ({ children }) => (
+  <MainContainer className="main-container">{children}</MainContainer>
+);
+
+const ActivitiesPage = props => (
+  <MainLayout>
+    <Activities {...props} />
+  </MainLayout>
+);
 
 export const query = graphql`
   query ActivitiesQuery {
@@ -48,4 +61,4 @@ export const query = graphql`
   }
 `;
 
-export default Activities;
+export default ActivitiesPage;
