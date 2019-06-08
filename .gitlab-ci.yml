@@ -4,7 +4,8 @@ pages:
   stage: deploy
   script:
     - npm install
-    - npx gatsby build
+    - npx gatsby --verbose build
+    - ls -la public
   artifacts:
     paths:
       - public
