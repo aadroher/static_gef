@@ -11,8 +11,6 @@
   "author": "Armand Adroher",
   "license": "ISC",
   "dependencies": {
-    "@smooth-ui/core-sc": "^10.1.0",
-    "@smooth-ui/system": "^10.1.0",
     "babel-plugin-styled-components": "^1.10.0",
     "cheerio": "^1.0.0-rc.3",
     "eslint": "^5.16.0",
