@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[1],{141:function(e,t,a){"use strict";a.r(t),a.d(t,"query",function(){return r});var n=a(0),i=a.n(n),r="4237313835";t.default=function(e){var t=e.data;return i.a.createElement("div",{className:"page-container"},i.a.createElement("h1",null,"Activitats"),i.a.createElement("p",null,t.site.siteMetadata.description))}}}]);
+//# sourceMappingURL=component---src-pages-activities-jsx-1e7694d70307e3e73a9b.js.map
