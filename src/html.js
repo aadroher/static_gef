@@ -11,7 +11,7 @@ const HTML = props => (
         content="width=device-width, initial-scale=1, shrink-to-fit=no"
       />
       {props.headComponents}
-      <style>{'body { margin: 0; padding: 0; }'}</style>
+      {/* <style>{'body { margin: 0; padding: 0; }'}</style> */}
     </head>
     <body {...props.bodyAttributes}>
       {props.preBodyComponents}
