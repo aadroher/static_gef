@@ -2,7 +2,7 @@
 title: Seminari amb Fina Birulés sobre el pensament d'Hannah Arendt
 ---
 
-**Data: **25 de maig de 2018
+**Data:** 25 de maig de 2018
 
 **Hora:** 17h
 
