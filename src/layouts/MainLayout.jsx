@@ -8,14 +8,21 @@ const GlobalStyles = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-  }
+
+    a {
+      color: mediumvioletred;
+    }
+  } 
 `;
 
-const MainMenuStyles = styled.nav`
+const MainMenuContainer = styled.nav`
   background-color: white;
+  margin: auto;
+  max-width: 800px;
 
   & > ul {
     margin: 0;
+    padding: 0;
 
     & li {
       list-style-position: outside;
@@ -32,59 +39,62 @@ const MainMenuStyles = styled.nav`
 `;
 
 const MainMenu = data => (
-  <MainMenuStyles className="main-menu">
+  <MainMenuContainer className="main-menu">
     <ul>
       <li className="active">Activitats</li>
     </ul>
-  </MainMenuStyles>
+  </MainMenuContainer>
 );
 
-const HeadingStyles = styled.div`
-  background-color: gray;
+const HeadingContainer = styled.div`
+  background-color: dimgray;
   color: white;
   font-size: 0.5rem;
   margin-top: 0;
-  padding: 1rem;
+  padding: 1rem 0;
   width: 100%;
 `;
 
 const SiteTitle = styled.h1`
-  margin: 0%;
+  margin: 0 1rem;
 `;
 
 const Heading = () => (
-  <HeadingStyles className="header__heading">
+  <HeadingContainer className="header__heading">
     <SiteTitle className="header__site-title">
       Grup d'Estudis Fenomenològics
     </SiteTitle>
-  </HeadingStyles>
+  </HeadingContainer>
 );
 
-const HeaderStyles = styled.header``;
+const HeaderContainer = styled.header``;
 
 const Header = data => (
-  <HeaderStyles className="header">
+  <HeaderContainer className="header">
     <Heading />
     <MainMenu {...data} />
-  </HeaderStyles>
+  </HeaderContainer>
 );
 
-const MainLayoutStyles = styled.div`
-  width: 100%;
+const MainLayoutContainer = styled.div`
+  color: black;
   padding-top: 0;
+  width: 100%;
 `;
 
-const ContentOuterStyles = styled.div`
-  margin-top: 5rem;
+const ContentContainer = styled.div`
+  margin: auto;
+  max-width: 800px;
+  padding: 1rem;
 `;
 
 const MainLayout = ({ children }) => (
   <>
     <GlobalStyles />
-    <MainLayoutStyles className="main-container">
+    <MainLayoutContainer className="main-container">
       <Header />
-      <ContentOuterStyles>{children}</ContentOuterStyles>
-    </MainLayoutStyles>
+      <ContentContainer>{children}</ContentContainer>
+    </MainLayoutContainer>
   </>
 );
 
