@@ -1,10 +1,9 @@
 module.exports = {
   siteMetadata: {
     title: "Grup d'Estudis Fenomenològics",
-    siteUrl: 'https://aadroher.gitlab.io',
+    siteUrl: 'https://aadroher.gitlab.io/gef',
     description: "Public site for the Grup d'Estudis Fenomenològics",
   },
-  pathPrefix: '/gef',
   plugins: [
     {
       resolve: 'gatsby-source-filesystem',
