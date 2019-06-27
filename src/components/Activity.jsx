@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const ActivityContainer = styled.div`
   background-color: snow;
+  padding-bottom: 8px;
   .activity {
     &__title {
       background-color: whitesmoke;
@@ -21,9 +22,6 @@ const Activity = ({ title, html }) => (
       className="activity__content"
       dangerouslySetInnerHTML={{ __html: html }}
     />
-    <div className="activity__go-to-top">
-      <a href="#top">⬆️</a>
-    </div>
   </ActivityContainer>
 );
 
