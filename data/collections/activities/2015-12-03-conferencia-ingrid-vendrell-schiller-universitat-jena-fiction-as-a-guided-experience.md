@@ -4,7 +4,7 @@ title: >-
   experience"
 ---
 
-**Data: **23 de desembre de 2015
+**Data:** 23 de desembre de 2015
 
 **Hora:** 17.30h
 
