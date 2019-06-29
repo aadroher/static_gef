@@ -5,7 +5,7 @@
   "description": "Static version of GEF",
   "main": "index.js",
   "scripts": {
-    "scrape": "node --experimental-modules bin/scrape.js",
+    "scrape": "node --experimental-modules src/tasks/scrape/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Armand Adroher",
