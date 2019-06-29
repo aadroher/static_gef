@@ -144,7 +144,7 @@ const saveActivities = async activitiesData => {
   return saveFile({ filePath: activitiesDataFilePath, contents });
 };
 
-export default getActivities()
+getActivities()
   .then(pageContents => {
     console.log(pageContents);
     return pageContents;
