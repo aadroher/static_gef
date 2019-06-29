@@ -1,3 +1,3 @@
-import scrape from '../bin/scrape';
+import scrape from '../src/tasks/scrape';
 
 scrape();
