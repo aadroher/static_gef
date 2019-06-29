@@ -7,28 +7,12 @@ import moment from 'moment';
 import yaml from 'yaml';
 import caseFormater from 'case';
 import unidecode from 'unidecode';
+import { inspect } from 'util';
 
-const baseUrl = 'https://www.grupdestudisfenomenologics.org';
-
-const activitiesIndexPageDetails = {
-  path: '/ca/node/50',
-  pages: 4,
-};
+import config from './config';
+import fetchPages from './pages';
 
 const getMarkdown = htmlText => new TurdownService().turndown(htmlText);
-
-const getPageRawText = async url =>
-  fetch(url).then(response => {
-    const msg = `Fetched: ${url}`;
-    console.info(msg);
-    if (!response.ok) {
-      console.log(response);
-      const msg = `${response.status} - ${response.statusText}`;
-      throw new Error(msg);
-    } else {
-      return response.text();
-    }
-  });
 
 const parseActivityPage = pageData => {
   const { url, pageRawText } = pageData;
@@ -144,12 +128,16 @@ const saveActivities = async activitiesData => {
   return saveFile({ filePath: activitiesDataFilePath, contents });
 };
 
-getActivities()
-  .then(pageContents => {
-    console.log(pageContents);
-    return pageContents;
-  })
-  .then(saveActivities)
-  .catch(err => {
-    console.error(err);
-  });
+// getActivities()
+//   .then(pageContents => {
+//     console.log(pageContents);
+//     return pageContents;
+//   })
+//   .then(saveActivities)
+//   .catch(err => {
+//     console.error(err);
+//   });
+
+fetchPages(config)
+  .then(x => inspect(x, { depth: null }))
+  .then(console.log);
