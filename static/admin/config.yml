@@ -7,14 +7,34 @@ backend:
 media_folder: "static/images/uploads"
 public_folder: "/images/uploads"
 collections:
-  - name: "activities"
-    label: "Activities"
-    folder: "data/collections/activities"
+  - name: activities_ca
+    label: "Activitats (ca)"
+    label_singular: "Activitat (ca)"
+    folder: data/collections/activities
+    filter:
+      field: language
+      value: ca
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{year}}-{{month}}-{{day}}_{{slug}}"
     fields:
-      - label: "Title"
-        name: "title"
+      - name: created_at
+        label: "Creat el"
+        widget: datetime
+      - name: language
+        label: "Idioma"
+        widget: select
+        options:
+          - label: "Català"
+            value: ca
+          - label: "Castellà"
+            value: es
+          - label: "Anglès"
+            value: en
+      - name: vivible
+        label: "Visible"
+        widget: boolean
+      - name: "title"
+        label: "Títol"
         widget: "string"
       - label: "Body"
         name: "body"
