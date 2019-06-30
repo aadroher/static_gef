@@ -10,7 +10,7 @@ import unidecode from 'unidecode';
 import { inspect } from 'util';
 
 import config from './config';
-import fetchPages from './pages';
+import getSections from './sections';
 
 const getMarkdown = htmlText => new TurdownService().turndown(htmlText);
 
@@ -138,6 +138,6 @@ const saveActivities = async activitiesData => {
 //     console.error(err);
 //   });
 
-fetchPages(config)
+getSections(config)
   .then(x => inspect(x, { depth: null }))
   .then(console.log);
