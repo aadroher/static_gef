@@ -10,8 +10,9 @@ slug:
   encoding: ascii
   clean_accents: true
 collections:
-  - name: "activities"
-    label: "Activities"
+  - name: "activities_ca"
+    label: "Activitats (ca)"
+    label_singular: "Activitat"
     folder: "data/collections/activities"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-ca-{{slug}}"
