@@ -10,31 +10,16 @@ slug:
   encoding: ascii
   clean_accents: true
 collections:
-<<<<<<< HEAD
-  - name: activities_ca
-    label: "Activitats (ca)"
-    label_singular: "Activitat (ca)"
-    folder: data/collections/activities
-    filter:
-      field: language
-      value: ca
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}_{{slug}}"
-=======
   - name: "activities_ca"
     label: "Activitats (ca)"
     label_singular: "Activitat (ca)"
     folder: "data/collections/activities"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-ca-{{slug}}"
->>>>>>> master
     fields:
       - name: createdAt
         label: "Creat el"
         widget: datetime
-<<<<<<< HEAD
-      - name: language
-=======
       - name: languageCode
         label: "Idioma"
         widget: select
@@ -100,7 +85,6 @@ collections:
         label: "Creat el"
         widget: datetime
       - name: languageCode
->>>>>>> master
         label: "Idioma"
         widget: select
         options:
