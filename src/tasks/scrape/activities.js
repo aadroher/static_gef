@@ -1,5 +1,9 @@
 import cheerio from 'cheerio';
 import TurdownService from 'turndown';
+import moment from 'moment';
+import yaml from 'yaml';
+import caseFormater from 'case';
+import unidecode from 'unidecode';
 
 import { getPageRawText } from './get';
 import config from './config';
@@ -19,9 +23,10 @@ const parseActivityPage = pageData => {
   const createdAt = $('[property="dc:date dc:created"]').attr('content');
   const visible = true;
   const frontMatterData = {
-    title,
     createdAt,
+    languageCode,
     visible,
+    title,
   };
   const body = getMarkdown(
     $('.field-name-body')
@@ -31,19 +36,37 @@ const parseActivityPage = pageData => {
 
   const frontMatter = `---\n${yaml.stringify(frontMatterData)}---`;
   const fileContents = `${frontMatter}\n\n${body}`;
+  const filePathPrefix = '/data/collections/activities/';
+  const formatedCreatedAt = moment(createdAt).format('YYYY-MM-DD_');
+  const kebabedTitle = `${unidecode(caseFormater.kebab(title))}.md`;
+  const filePath = `${filePathPrefix}${formatedCreatedAt}-${kebabedTitle}`;
 
   return {
     originUrl,
     title,
     createdAt,
     body,
+    filePath,
+    fileContents,
   };
 };
 
 const parseActivitySectionVersionPage = async sectionVersionPageData => {
-  console.log({ sectionVersionPageData });
   const { languageCode, contents } = sectionVersionPageData;
   const $ = cheerio.load(contents);
+
+  const title = getMarkdown(
+    $('#page-title')
+      .first()
+      .html()
+  );
+
+  const body = getMarkdown(
+    $('.field-type-text-with-summary')
+      .first()
+      .html()
+  );
+
   const activityPagesData = await Promise.all(
     $('.view-actualitat h2 a')
       .toArray()
@@ -60,28 +83,20 @@ const parseActivitySectionVersionPage = async sectionVersionPageData => {
   const activities = activityPagesData.map(parseActivityPage);
 
   return {
-    title: getMarkdown(
-      $('#page-title')
-        .first()
-        .html()
-    ),
-    introText: getMarkdown(
-      $('.field-type-text-with-summary')
-        .first()
-        .html()
-    ),
+    section: {
+      title,
+      body,
+    },
     activities,
   };
 };
 
 const parseActivitySectionVersion = async sectionVersionData => {
-  const { languageCode, pages } = sectionVersionData;
+  const { pages } = sectionVersionData;
   const parsedPages = await Promise.all(
-    pages.map(parseActivitySectionVersionPage)
+    pages.slice(0, 1).map(parseActivitySectionVersionPage)
   );
   return parsedPages;
-  console.log({ parsedPages });
-  return parsedPages.map(parsedPage => ({ languageCode, ...parsedPage }));
 };
 
 const parseActivitiesSection = async sectionData => {
@@ -89,7 +104,6 @@ const parseActivitiesSection = async sectionData => {
   const parsedVersions = await Promise.all(
     versions.map(parseActivitySectionVersion)
   );
-  // console.log(parsedVersions[0][0]);
   return parsedVersions;
 };
 

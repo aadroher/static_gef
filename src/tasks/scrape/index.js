@@ -128,16 +128,6 @@ const saveActivities = async activitiesData => {
   return saveFile({ filePath: activitiesDataFilePath, contents });
 };
 
-// getActivities()
-//   .then(pageContents => {
-//     console.log(pageContents);
-//     return pageContents;
-//   })
-//   .then(saveActivities)
-//   .catch(err => {
-//     console.error(err);
-//   });
-
 getSections(config)
   .then(x => inspect(x, { depth: null }))
   .then(console.log);
