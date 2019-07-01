@@ -11,6 +11,7 @@ import { inspect } from 'util';
 
 import config from './config';
 import getSections from './sections';
+// import { saveFile } from './save';
 
 const getMarkdown = htmlText => new TurdownService().turndown(htmlText);
 
@@ -128,6 +129,12 @@ const saveActivities = async activitiesData => {
   return saveFile({ filePath: activitiesDataFilePath, contents });
 };
 
-getSections(config)
-  .then(x => inspect(x, { depth: null }))
-  .then(console.log);
+getSections(config).then(x => {
+  console.log(inspect(x, { depth: null }));
+  return x;
+});
+// .then(files =>
+//   Promise.all(
+//     files.map
+//   )
+// );

@@ -37,9 +37,9 @@ const parseActivityPage = pageData => {
   const frontMatter = `---\n${yaml.stringify(frontMatterData)}---`;
   const fileContents = `${frontMatter}\n\n${body}`;
   const filePathPrefix = '/data/collections/activities/';
-  const formatedCreatedAt = moment(createdAt).format('YYYY-MM-DD_');
+  const formatedCreatedAt = moment(createdAt).format('YYYY-MM-DD');
   const kebabedTitle = `${unidecode(caseFormater.kebab(title))}.md`;
-  const filePath = `${filePathPrefix}${formatedCreatedAt}-${kebabedTitle}`;
+  const filePath = `${filePathPrefix}${formatedCreatedAt}-${languageCode}-${kebabedTitle}`;
 
   return {
     originUrl,
@@ -83,7 +83,7 @@ const parseActivitySectionVersionPage = async sectionVersionPageData => {
   const activities = activityPagesData.map(parseActivityPage);
 
   return {
-    section: {
+    introText: {
       title,
       body,
     },
@@ -92,19 +92,34 @@ const parseActivitySectionVersionPage = async sectionVersionPageData => {
 };
 
 const parseActivitySectionVersion = async sectionVersionData => {
-  const { pages } = sectionVersionData;
+  const { languageCode, pages } = sectionVersionData;
   const parsedPages = await Promise.all(
-    pages.slice(0, 1).map(parseActivitySectionVersionPage)
+    pages.slice(0).map(parseActivitySectionVersionPage)
   );
-  return parsedPages;
+  const contents = parsedPages.reduce(
+    (parsedPages, { introText, activities }) => ({
+      introText,
+      activities: [...parsedPages.activities, ...activities],
+    }),
+    {
+      activities: [],
+    }
+  );
+  return {
+    languageCode,
+    ...contents,
+  };
 };
 
 const parseActivitiesSection = async sectionData => {
-  const { versions } = sectionData;
+  const { name, versions } = sectionData;
   const parsedVersions = await Promise.all(
-    versions.map(parseActivitySectionVersion)
+    versions.slice(0).map(parseActivitySectionVersion)
   );
-  return parsedVersions;
+  return {
+    name,
+    versions: parsedVersions,
+  };
 };
 
 export default parseActivitiesSection;
