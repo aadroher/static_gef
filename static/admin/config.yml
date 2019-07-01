@@ -12,7 +12,7 @@ slug:
 collections:
   - name: "activities_ca"
     label: "Activitats (ca)"
-    label_singular: "Activitat"
+    label_singular: "Activitat (ca)"
     folder: "data/collections/activities"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-ca-{{slug}}"
