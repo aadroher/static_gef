@@ -6,15 +6,98 @@ backend:
   branch: master
 media_folder: "static/images/uploads"
 public_folder: "/images/uploads"
+slug:
+  encoding: ascii
+  clean_accents: true
 collections:
   - name: "activities"
     label: "Activities"
     folder: "data/collections/activities"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{year}}-{{month}}-{{day}}-ca-{{slug}}"
     fields:
-      - label: "Title"
-        name: "title"
+      - name: createdAt
+        label: "Creat el"
+        widget: datetime
+      - name: languageCode
+        label: "Idioma"
+        widget: select
+        options:
+          - label: "Català"
+            value: ca
+          - label: "Castellà"
+            value: es
+          - label: "Anglès"
+            value: en
+      - name: vivible
+        label: "Visible"
+        widget: boolean
+      - name: "title"
+        label: "Títol"
+        widget: "string"
+      - label: "Body"
+        name: "body"
+        widget: "markdown"
+  - name: activities_es
+    label: "Activitats (es)"
+    label_singular: "Activitat (es)"
+    folder: data/collections/activities
+    filter:
+      field: language
+      value: es
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-es-{{slug}}"
+    fields:
+      - name: createdAt
+        label: "Creat el"
+        widget: datetime
+      - name: languageCode
+        label: "Idioma"
+        widget: select
+        options:
+          - label: "Català"
+            value: ca
+          - label: "Castellà"
+            value: es
+          - label: "Anglès"
+            value: en
+      - name: vivible
+        label: "Visible"
+        widget: boolean
+      - name: "title"
+        label: "Títol"
+        widget: "string"
+      - label: "Body"
+        name: "body"
+        widget: "markdown"
+  - name: activities_en
+    label: "Activitats (en)"
+    label_singular: "Activitat (en)"
+    folder: data/collections/activities
+    filter:
+      field: language
+      value: en
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-en-{{slug}}"
+    fields:
+      - name: createdAt
+        label: "Creat el"
+        widget: datetime
+      - name: languageCode
+        label: "Idioma"
+        widget: select
+        options:
+          - label: "Català"
+            value: ca
+          - label: "Castellà"
+            value: es
+          - label: "Anglès"
+            value: en
+      - name: vivible
+        label: "Visible"
+        widget: boolean
+      - name: "title"
+        label: "Títol"
         widget: "string"
       - label: "Body"
         name: "body"
