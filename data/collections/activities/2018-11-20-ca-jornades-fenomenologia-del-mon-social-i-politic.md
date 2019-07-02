@@ -1,7 +1,7 @@
 ---
 createdAt: 2018-11-20T23:57:25.000Z
 languageCode: ca
-vivible: true
+visible: true
 title: Jornades. "Fenomenologia del món social i polític"
 ---
 
