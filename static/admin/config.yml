@@ -33,7 +33,7 @@ collections:
             value: es
           - label: "Anglès"
             value: en
-      - name: vivible
+      - name: visible
         label: "Visible"
         widget: boolean
       - name: "title"
@@ -65,7 +65,7 @@ collections:
             value: es
           - label: "Anglès"
             value: en
-      - name: vivible
+      - name: visible
         label: "Visible"
         widget: boolean
       - name: "title"
@@ -97,7 +97,7 @@ collections:
             value: es
           - label: "Anglès"
             value: en
-      - name: vivible
+      - name: visible
         label: "Visible"
         widget: boolean
       - name: "title"
