@@ -14,6 +14,9 @@ collections:
     label: "Activitats (ca)"
     label_singular: "Activitat (ca)"
     folder: "data/collections/activities"
+    filter:
+      field: languageCode
+      value: ca
     create: true
     slug: "{{year}}-{{month}}-{{day}}-ca-{{slug}}"
     fields:
@@ -44,7 +47,7 @@ collections:
     label_singular: "Activitat (es)"
     folder: data/collections/activities
     filter:
-      field: language
+      field: languageCode
       value: es
     create: true
     slug: "{{year}}-{{month}}-{{day}}-es-{{slug}}"
@@ -76,7 +79,7 @@ collections:
     label_singular: "Activitat (en)"
     folder: data/collections/activities
     filter:
-      field: language
+      field: languageCode
       value: en
     create: true
     slug: "{{year}}-{{month}}-{{day}}-en-{{slug}}"
