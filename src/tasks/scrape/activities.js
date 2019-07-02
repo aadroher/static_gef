@@ -97,7 +97,7 @@ const parseActivitySectionVersionPage = async sectionVersionPageData => {
 const parseActivitySectionVersion = async sectionVersionData => {
   const { languageCode, pages } = sectionVersionData;
   const parsedPages = await Promise.all(
-    pages.slice(0).map(parseActivitySectionVersionPage)
+    pages.map(parseActivitySectionVersionPage)
   );
   const contents = parsedPages.reduce(
     (parsedPages, { introText, activities }) => ({
@@ -117,7 +117,7 @@ const parseActivitySectionVersion = async sectionVersionData => {
 const parseActivitiesSection = async sectionData => {
   const { name, versions } = sectionData;
   const parsedVersions = await Promise.all(
-    versions.slice(0).map(parseActivitySectionVersion)
+    versions.map(parseActivitySectionVersion)
   );
   return {
     name,

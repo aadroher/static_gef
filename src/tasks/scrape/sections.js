@@ -20,7 +20,7 @@ const getLanguageVersions = ({ baseUrl, languageCode, node, n }) =>
 
 const fetchSections = async ({ baseUrl, languages, pages }) =>
   Promise.all(
-    pages.slice(0, 1).map(async ({ name, node, n }) => {
+    pages.map(async ({ name, node, n }) => {
       const versions = await Promise.all(
         languages.map(({ code: languageCode }) =>
           getLanguageVersions({ baseUrl, languageCode, node, n })
