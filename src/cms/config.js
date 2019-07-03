@@ -19,7 +19,7 @@ const slug = {
 
 const languages = [
   {
-    laguageCode: 'ca',
+    languageCode: 'ca',
     name: 'Català',
   },
   {
