@@ -102,6 +102,7 @@ const getActivitiesSchema = ({ languageCode }) => ({
   filter: getLanguageFilter(languageCode),
   create: true,
   slug: getSlug(languageCode),
+  summary: '{{day}}/{{month}}/{{year}} - {{title}}',
   fields: [
     getContentTypeField('activity'),
     getCreatedAtField(),
@@ -112,9 +113,28 @@ const getActivitiesSchema = ({ languageCode }) => ({
   ],
 });
 
-// const getPagesSchema = ({ languageCode }) => ({});
+const getPagesSchema = ({ languageCode }) => ({
+  name: `pages_${languageCode}`,
+  label: `Pàgines (${languageCode})`,
+  label_singular: `Pàgina (${languageCode})`,
+  folder: 'data/collections/pages',
+  filter: getLanguageFilter(languageCode),
+  create: false,
+  slug: getSlug(languageCode),
+  fields: [
+    getContentTypeField('page'),
+    getCreatedAtField(),
+    {
+      name: 'pageCode',
+      widget: 'hidden',
+      required: true,
+    },
+    getTitleField(),
+    getBodyField(),
+  ],
+});
 
-const schemaGenerators = [getActivitiesSchema];
+const schemaGenerators = [getActivitiesSchema, getPagesSchema];
 
 const collections = schemaGenerators
   .map(schemaGenerator => languages.map(schemaGenerator))
