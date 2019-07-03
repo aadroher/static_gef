@@ -38,13 +38,11 @@ const parseActivityPage = pageData => {
 
   const frontMatter = `---\n${yaml.stringify(frontMatterData)}---`;
   const fileContents = `${frontMatter}\n\n${body}`;
+
   const filePathPrefix = '/data/collections/activities/';
   const formatedCreatedAt = moment(createdAt).format('YYYY-MM-DD');
-  const kebabedTitle = `${unidecode(caseFormater.kebab(title)).replace(
-    '"',
-    ''
-  )}.md`;
-  const filePath = `${filePathPrefix}${formatedCreatedAt}-${languageCode}-${kebabedTitle}`;
+  const kebabedTitle = unidecode(caseFormater.kebab(title)).replace('"', '');
+  const filePath = `${filePathPrefix}${formatedCreatedAt}-${languageCode}-${kebabedTitle}.md`;
 
   return {
     originUrl,
@@ -56,8 +54,34 @@ const parseActivityPage = pageData => {
   };
 };
 
+const buildIndexPageData = ({ originUrl, languageCode, title, body }) => {
+  const contentType = 'page';
+  const pageCode = 'activities';
+
+  const frontMatterData = {
+    contentType,
+    languageCode,
+    pageCode,
+    title,
+  };
+
+  const frontMatter = `---\n${yaml.stringify(frontMatterData)}---`;
+  const fileContents = `${frontMatter}\n\n${body}`;
+
+  const filePathPrefix = '/data/collections/pages/';
+  const filePath = `${filePathPrefix}${languageCode}-activities.md`;
+
+  return {
+    originUrl,
+    title,
+    body,
+    filePath,
+    fileContents,
+  };
+};
+
 const parseActivitySectionVersionPage = async sectionVersionPageData => {
-  const { languageCode, contents } = sectionVersionPageData;
+  const { languageCode, originUrl, contents } = sectionVersionPageData;
   const $ = cheerio.load(contents);
 
   const title = getMarkdown(
@@ -71,6 +95,13 @@ const parseActivitySectionVersionPage = async sectionVersionPageData => {
       .first()
       .html()
   );
+
+  const index = buildIndexPageData({
+    originUrl,
+    languageCode,
+    title,
+    body,
+  });
 
   const activityPagesData = await Promise.all(
     $('.view-actualitat h2 a')
@@ -88,10 +119,7 @@ const parseActivitySectionVersionPage = async sectionVersionPageData => {
   const activities = activityPagesData.map(parseActivityPage);
 
   return {
-    introText: {
-      title,
-      body,
-    },
+    index,
     activities,
   };
 };
@@ -102,8 +130,8 @@ const parseActivitySectionVersion = async sectionVersionData => {
     pages.map(parseActivitySectionVersionPage)
   );
   const contents = parsedPages.reduce(
-    (parsedPages, { introText, activities }) => ({
-      introText,
+    (parsedPages, { index, activities }) => ({
+      index,
       activities: [...parsedPages.activities, ...activities],
     }),
     {
