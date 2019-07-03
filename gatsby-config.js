@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: "Grup d'Estudis Fenomenològics",
-    siteUrl: 'https://www.grupdestudisfenomenologics.org',
+    siteUrl: 'https://aadroher.gitlab.io',
     description: "Public site for the Grup d'Estudis Fenomenològics",
   },
   plugins: [
@@ -33,6 +33,13 @@ module.exports = {
       options: {
         // Add any options here
         minify: false,
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-netlify-cms',
+      options: {
+        manualInit: true,
+        modulePath: `${__dirname}/src/cms/cms.js`,
       },
     },
   ],

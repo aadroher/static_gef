@@ -1,10 +1,12 @@
-image: node:12.3.1
+image: node:11.15.0
 
 pages:
   stage: deploy
   script:
-    - npm install
-    - npx gatsby --verbose build
+    - npm ci
+    - npx gatsby telemetry --disable
+    - npx gatsby clean
+    - npx gatsby build
   artifacts:
     paths:
       - public
