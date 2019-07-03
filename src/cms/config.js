@@ -102,7 +102,7 @@ const getActivitiesSchema = ({ languageCode }) => ({
   filter: getLanguageFilter(languageCode),
   create: true,
   slug: getSlug(true, languageCode),
-  summary: '{{createdAt}}: {{title}}',
+  summary: '{{title}}',
   fields: [
     getContentTypeField('activity'),
     getCreatedAtField(),
