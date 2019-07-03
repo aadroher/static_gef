@@ -3,7 +3,7 @@ const gitlabAppId =
 
 const backend = {
   name: 'gitlab',
-  repo: 'aadroher/gitlab',
+  repo: 'aadroher/gef',
   auth_type: 'implicit',
   app_id: gitlabAppId,
   branch: 'master',
