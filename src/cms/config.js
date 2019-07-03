@@ -32,70 +32,93 @@ const languages = [
   },
 ];
 
+const getLanguageFilter = languageCode => ({
+  field: 'languageCode',
+  value: languageCode,
+});
+
+const getSlug = languageCode =>
+  `{{year}}-{{month}}-{{day}}-${languageCode}-{{slug}}`;
+
+const getContentTypeField = contentType => ({
+  name: 'contentType',
+  widget: 'hidden',
+  default: contentType,
+  required: true,
+});
+
+const getCreatedAtField = () => ({
+  name: 'createdAt',
+  label: 'Creat el',
+  widget: 'datetime',
+});
+
+const getLanguageCodeField = defaultValue => ({
+  name: 'languageCode',
+  label: 'Idioma',
+  widget: 'select',
+  options: [
+    {
+      label: 'Català',
+      value: 'ca',
+    },
+    {
+      label: 'Castellà',
+      value: 'es',
+    },
+    {
+      label: 'Anglès',
+      value: 'en',
+    },
+  ],
+  default: defaultValue,
+});
+
+const getVisibleField = () => ({
+  name: 'visible',
+  label: 'Visible',
+  widget: 'boolean',
+  default: false,
+});
+
+const getTitleField = () => ({
+  name: 'title',
+  label: 'Títol',
+  widget: 'string',
+  required: true,
+});
+
+const getBodyField = () => ({
+  name: 'body',
+  label: 'Cos del Text',
+  widget: 'markdown',
+});
+
 const getActivitiesSchema = ({ languageCode }) => ({
   name: `activities_${languageCode}`,
   label: `Activitats (${languageCode})`,
   label_singular: `Activitat (${languageCode})`,
   folder: 'data/collections/activities',
-  filter: {
-    field: 'languageCode',
-    value: languageCode,
-  },
+  filter: getLanguageFilter(languageCode),
   create: true,
-  slug: `{{year}}-{{month}}-{{day}}-${languageCode}-{{slug}}`,
+  slug: getSlug(languageCode),
   fields: [
-    {
-      name: 'contentType',
-      widget: 'hidden',
-      default: 'activity',
-      required: true,
-    },
-    {
-      name: 'createdAt',
-      label: 'Creat el',
-      widget: 'datetime',
-    },
-    {
-      name: 'languageCode',
-      label: 'Idioma',
-      widget: 'select',
-      options: [
-        {
-          label: 'Català',
-          value: 'ca',
-        },
-        {
-          label: 'Castellà',
-          value: 'es',
-        },
-        {
-          label: 'Anglès',
-          value: 'en',
-        },
-      ],
-      default: languageCode,
-    },
-    {
-      name: 'visible',
-      label: 'Visible',
-      widget: 'boolean',
-      default: false,
-    },
-    {
-      name: 'title',
-      label: 'Títol',
-      widget: 'string',
-      required: true,
-    },
-    {
-      name: 'body',
-      label: 'Cos del Text',
-      widget: 'markdown',
-    },
+    getContentTypeField('activity'),
+    getCreatedAtField(),
+    getLanguageCodeField(languageCode),
+    getVisibleField(),
+    getTitleField(),
+    getBodyField(),
   ],
 });
 
-const collections = [...languages.map(getActivitiesSchema)];
+// const getPagesSchema = ({ languageCode }) => ({});
+
+const schemaGenerators = [getActivitiesSchema];
+
+const collections = schemaGenerators
+  .map(schemaGenerator => languages.map(schemaGenerator))
+  .flat();
 
 const config = {
   load_config_file: false,
