@@ -11,7 +11,9 @@ getSections(config)
   })
   .then(sections => {
     const { versions } = sections.find(({ name }) => name === 'activities');
-    const activities = versions.map(({ activities }) => activities).flat();
+    const activities = versions
+      .map(({ index, activities }) => [index, ...activities])
+      .flat();
     console.log(activities);
     return Promise.all(activities.map(saveFile));
   });
