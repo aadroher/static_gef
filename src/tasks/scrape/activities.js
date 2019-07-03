@@ -14,15 +14,17 @@ const getMarkdown = htmlText => new TurdownService().turndown(htmlText);
 
 const parseActivityPage = pageData => {
   const { originUrl, pageRawText, languageCode } = pageData;
+  const contentType = 'activity';
   const $ = cheerio.load(pageRawText);
+  const createdAt = $('[property="dc:date dc:created"]').attr('content');
   const title = getMarkdown(
     $('#page-title')
       .first()
       .html()
   );
-  const createdAt = $('[property="dc:date dc:created"]').attr('content');
   const visible = true;
   const frontMatterData = {
+    contentType,
     createdAt,
     languageCode,
     visible,

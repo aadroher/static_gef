@@ -1,4 +1,5 @@
 ---
+contentType: activity
 createdAt: 2017-12-19T11:37:16+01:00
 languageCode: ca
 visible: true

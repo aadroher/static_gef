@@ -20,6 +20,10 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-ca-{{slug}}"
     fields:
+      - name: contentType
+        widget: hidden
+        default: activity
+        required: true
       - name: createdAt
         label: "Creat el"
         widget: datetime
@@ -52,6 +56,10 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-es-{{slug}}"
     fields:
+      - name: contentType
+        widget: hidden
+        default: activity
+        required: true
       - name: createdAt
         label: "Creat el"
         widget: datetime
@@ -84,6 +92,10 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-en-{{slug}}"
     fields:
+      - name: contentType
+        widget: hidden
+        default: activity
+        required: true
       - name: createdAt
         label: "Creat el"
         widget: datetime

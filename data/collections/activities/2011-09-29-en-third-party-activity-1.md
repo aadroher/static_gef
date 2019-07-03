@@ -1,4 +1,5 @@
 ---
+contentType: activity
 createdAt: 2011-09-29T21:07:49+02:00
 languageCode: en
 visible: true
