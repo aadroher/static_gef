@@ -16,9 +16,9 @@ const onCreateNode = ({ node, getNode, actions }) => {
   }
 };
 
-const createPages = ({ graphql, actions }) => {
+const createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
-  return graphql(`
+  const { data } = await graphql(`
     {
       allMarkdownRemark {
         edges {
@@ -35,18 +35,22 @@ const createPages = ({ graphql, actions }) => {
         }
       }
     }
-  `).then(result => {
-    result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-      console.log(node.fields.slug);
-      createPage({
-        path: node.fields.slug,
-        component: path.resolve(`./src/pages/activity.jsx`),
-        context: {
-          // Data passed to context is available
-          // in page queries as GraphQL variables.
-          slug: node.fields.slug,
-        },
-      });
+  `);
+  console.log({ data });
+  data.allMarkdownRemark.edges.forEach(({ node }) => {
+    const {
+      fields: { slug },
+    } = node;
+    const pagePath = slug.replace('/collections', '');
+    console.log({ pagePath });
+    createPage({
+      path: pagePath,
+      component: path.resolve(`./src/templates/activity.jsx`),
+      context: {
+        // Data passed to context is available
+        // in page queries as GraphQL variables.
+        slug,
+      },
     });
   });
 };
