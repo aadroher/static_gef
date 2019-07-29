@@ -99,7 +99,6 @@ const getActivitiesSchema = ({ languageCode }) => ({
   label: `Activitats (${languageCode})`,
   label_singular: `Activitat (${languageCode})`,
   folder: `data/collections/${languageCode}/activities`,
-  // filter: getLanguageFilter(languageCode),
   create: true,
   slug: getSlug(true, languageCode),
   summary: '{{title}}',
@@ -118,7 +117,6 @@ const getPagesSchema = ({ languageCode }) => ({
   label: `Pàgines (${languageCode})`,
   label_singular: `Pàgina (${languageCode})`,
   folder: `data/collections/${languageCode}/pages`,
-  // filter: getLanguageFilter(languageCode),
   create: false,
   slug: getSlug(false, languageCode),
   fields: [
