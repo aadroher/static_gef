@@ -38,7 +38,7 @@ const getLanguageFilter = languageCode => ({
 });
 
 const getSlug = (withDate, languageCode) =>
-  `${withDate ? '{{year}}-{{month}}-{{day}}' : ''}-${languageCode}-{{slug}}`;
+  `${withDate ? '{{year}}-{{month}}-{{day}}' : ''}-{{slug}}`;
 
 const getContentTypeField = contentType => ({
   name: 'contentType',
@@ -98,8 +98,8 @@ const getActivitiesSchema = ({ languageCode }) => ({
   name: `activities_${languageCode}`,
   label: `Activitats (${languageCode})`,
   label_singular: `Activitat (${languageCode})`,
-  folder: 'data/collections/activities',
-  filter: getLanguageFilter(languageCode),
+  folder: `data/collections/${languageCode}/activities`,
+  // filter: getLanguageFilter(languageCode),
   create: true,
   slug: getSlug(true, languageCode),
   summary: '{{title}}',
@@ -117,8 +117,8 @@ const getPagesSchema = ({ languageCode }) => ({
   name: `pages_${languageCode}`,
   label: `Pàgines (${languageCode})`,
   label_singular: `Pàgina (${languageCode})`,
-  folder: 'data/collections/pages',
-  filter: getLanguageFilter(languageCode),
+  folder: `data/collections/${languageCode}/pages`,
+  // filter: getLanguageFilter(languageCode),
   create: false,
   slug: getSlug(false, languageCode),
   fields: [
