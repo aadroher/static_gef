@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const languages = [
@@ -16,16 +16,43 @@ const languages = [
   },
 ];
 
-const StyledLanguageSelector = styled.div``;
+const StyledLanguageSelector = styled.div`
+  display: inline;
+  font-size: 1rem;
+  ul {
+    display: inline-block;
+    list-style-type: none;
+    li {
+      display: inline;
+      margin-left: 8px;
 
-const LanguageSelector = () => (
-  <StyledLanguageSelector>
-    <ul>
-      {languages.map(({ name }) => (
-        <li>{name}</li>
-      ))}
-    </ul>
-  </StyledLanguageSelector>
-);
+      a {
+        color: white;
+      }
+    }
+  }
+`;
 
+const LanguageSelector = () => {
+  const [{ code: selectedCode }, setSelected] = useState({ code: 'ca' });
+  console.log({ selectedCode });
+  return (
+    <StyledLanguageSelector>
+      <ul>
+        {languages.map(({ name, code }) => (
+          <li key={code}>
+            <a
+              href="#"
+              onClick={() => {
+                setSelected({ code });
+              }}
+            >
+              {name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </StyledLanguageSelector>
+  );
+};
 export default LanguageSelector;

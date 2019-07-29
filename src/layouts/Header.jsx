@@ -15,6 +15,7 @@ const HeadingContainer = styled.div`
 
 const SiteTitle = styled.h1`
   margin: 0 1rem;
+  display: inline-block;
 `;
 
 const Heading = () => (
