@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import MainMenu from './MainMenu';
+import LanguageSelector from './LanguageSelector';
 
 const HeadingContainer = styled.div`
   background-color: dimgray;
@@ -21,6 +22,7 @@ const Heading = () => (
     <SiteTitle className="header__site-title">
       Grup d'Estudis Fenomenològics
     </SiteTitle>
+    <LanguageSelector />
   </HeadingContainer>
 );
 
