@@ -38,15 +38,16 @@ const parseActivityPage = pageData => {
 
   const frontMatter = `---\n${yaml.stringify(frontMatterData)}---`;
   const fileContents = `${frontMatter}\n\n${body}`;
-
-  const filePathPrefix = `/data/collections/${languageCode}/activities/`;
   const formatedCreatedAt = moment(createdAt).format('YYYY-MM-DD');
+
+  const filePathPrefix = `/data/collections/${languageCode}/activities/${formatedCreatedAt}/`;
+
   const kebabedTitle = unidecode(caseFormater.kebab(title))
     .replace('"', '')
     .substring(0, 64);
   console.log({ kebabedTitle });
   console.log('l', kebabedTitle.length);
-  const filePath = `${filePathPrefix}${formatedCreatedAt}-${kebabedTitle}.md`;
+  const filePath = `${filePathPrefix}${kebabedTitle}.md`;
 
   return {
     originUrl,

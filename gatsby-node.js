@@ -36,7 +36,6 @@ const createPages = async ({ graphql, actions }) => {
       }
     }
   `);
-  console.log({ data });
   data.allMarkdownRemark.edges.forEach(({ node }) => {
     const {
       fields: { slug },

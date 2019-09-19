@@ -1,0 +1,16 @@
+query Activities {
+  allMarkdownRemark {
+    edges {
+      node {
+        fields {
+          slug
+        }
+        frontmatter {
+          title
+          languageCode
+        }
+        html
+      }
+    }
+  }  
+}
