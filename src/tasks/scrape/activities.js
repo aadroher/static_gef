@@ -39,10 +39,14 @@ const parseActivityPage = pageData => {
   const frontMatter = `---\n${yaml.stringify(frontMatterData)}---`;
   const fileContents = `${frontMatter}\n\n${body}`;
 
-  const filePathPrefix = '/data/collections/activities/';
+  const filePathPrefix = `/data/collections/${languageCode}/activities/`;
   const formatedCreatedAt = moment(createdAt).format('YYYY-MM-DD');
-  const kebabedTitle = unidecode(caseFormater.kebab(title)).replace('"', '');
-  const filePath = `${filePathPrefix}${formatedCreatedAt}-${languageCode}-${kebabedTitle}.md`;
+  const kebabedTitle = unidecode(caseFormater.kebab(title))
+    .replace('"', '')
+    .substring(0, 64);
+  console.log({ kebabedTitle });
+  console.log('l', kebabedTitle.length);
+  const filePath = `${filePathPrefix}${formatedCreatedAt}-${kebabedTitle}.md`;
 
   return {
     originUrl,
@@ -68,8 +72,8 @@ const buildIndexPageData = ({ originUrl, languageCode, title, body }) => {
   const frontMatter = `---\n${yaml.stringify(frontMatterData)}---`;
   const fileContents = `${frontMatter}\n\n${body}`;
 
-  const filePathPrefix = '/data/collections/pages/';
-  const filePath = `${filePathPrefix}${languageCode}-activities.md`;
+  const filePathPrefix = `/data/collections/${languageCode}/pages/`;
+  const filePath = `${filePathPrefix}activities.md`;
 
   return {
     originUrl,
