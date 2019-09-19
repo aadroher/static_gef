@@ -45,8 +45,6 @@ const parseActivityPage = pageData => {
   const kebabedTitle = unidecode(caseFormater.kebab(title))
     .replace('"', '')
     .substring(0, 64);
-  console.log({ kebabedTitle });
-  console.log('l', kebabedTitle.length);
   const filePath = `${filePathPrefix}${kebabedTitle}.md`;
 
   return {
