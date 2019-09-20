@@ -1,5 +1,5 @@
-const path = require(`path`);
-const { createFilePath } = require(`gatsby-source-filesystem`);
+const path = require('path');
+const { createFilePath } = require('gatsby-source-filesystem');
 
 const onCreateNode = ({ node, getNode, actions }) => {
   const {
@@ -18,7 +18,7 @@ const onCreateNode = ({ node, getNode, actions }) => {
 
 const createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
-  const { data } = await graphql(`
+  const { data } = await graphql(/* GraphQL */ `
     {
       allMarkdownRemark {
         edges {
@@ -36,6 +36,7 @@ const createPages = async ({ graphql, actions }) => {
       }
     }
   `);
+
   data.allMarkdownRemark.edges.forEach(({ node }) => {
     const {
       fields: { slug },
@@ -46,8 +47,6 @@ const createPages = async ({ graphql, actions }) => {
       path: pagePath,
       component: path.resolve(`./src/templates/activity.jsx`),
       context: {
-        // Data passed to context is available
-        // in page queries as GraphQL variables.
         slug,
       },
     });

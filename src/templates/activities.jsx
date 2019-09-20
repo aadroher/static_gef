@@ -37,22 +37,41 @@ const ActivitiesPage = props => (
   </MainLayout>
 );
 
-export const query = graphql`
+export const getQuery = languageCode => graphql`
   query ActivitiesQuery {
-    allFile(filter: { extension: { eq: "md" } }) {
-      edges {
-        node {
-          id
-          childMarkdownRemark {
-            frontmatter {
-              title
-            }
-            html
-          }
+    allMarkdownRemark(filter: { frontmatter: { languageCode: { eq: ${languageCode} } } }) {
+      nodes {
+        id
+        frontmatter {
+          title
+          contentType
+          languageCode
+          pageCode
+          createdAt
+          visible
         }
+        rawMarkdownBody
       }
     }
   }
 `;
+
+// export const query = graphql`
+//   query ActivitiesQuery {
+//     allFile(filter: { extension: { eq: "md" } }) {
+//       edges {
+//         node {
+//           id
+//           childMarkdownRemark {
+//             frontmatter {
+//               title
+//             }
+//             html
+//           }
+//         }
+//       }
+//     }
+//   }
+// `;
 
 export default ActivitiesPage;
