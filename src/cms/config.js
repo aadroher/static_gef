@@ -13,7 +13,7 @@ const mediaFolder = 'static/images/uploads';
 const publicFolder = '/images/uploads';
 
 const slug = {
-  encoding: 'ascii',
+  encoding: 'unicode',
   clean_accents: true
 };
 
@@ -139,6 +139,7 @@ const collections = schemaGenerators
   .flat();
 
 const config = {
+  locale: 'ca',
   local_backend: true,
   load_config_file: false,
   backend,
