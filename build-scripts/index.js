@@ -6,7 +6,7 @@ const schema = /* GraphQL */ `
     title: String
     languageCode: String
     visible: Boolean
-    createdAt: DateTime
+    createdAt: Date
     htmlContent: String
   }
 `;
@@ -40,14 +40,12 @@ const createPages = async ({ graphql, actions }) => {
   const { data } = await graphql(/* GraphQL */ `
     {
       allMarkdownRemark {
-        edges {
-          nodes {
-            frontmatter {
-              title
-              languageCode
-            }
-            html
+        nodes {
+          frontmatter {
+            title
+            languageCode
           }
+          html
         }
       }
     }
@@ -55,18 +53,19 @@ const createPages = async ({ graphql, actions }) => {
 
   console.log(data);
 
-  data.allMarkdownRemark.edges.forEach(({ node }) => {
-    const {
-      fields: { slug }
-    } = node;
-    const pagePath = slug.replace('/collections', '');
-    createPage({
-      path: pagePath,
-      component: resolve(`./src/templates/activity.jsx`),
-      context: {
-        slug
-      }
-    });
+  data.allMarkdownRemark.nodes.forEach(node => {
+    console.log(node);
+    // const {
+    //   fields: { slug }
+    // } = node;
+    // const pagePath = slug.replace('/collections', '');
+    // createPage({
+    //   path: pagePath,
+    //   component: resolve(`./src/templates/activity.jsx`),
+    //   context: {
+    //     slug
+    //   }
+    // });
   });
 };
 

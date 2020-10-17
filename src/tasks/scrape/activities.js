@@ -40,7 +40,7 @@ const parseActivityPage = pageData => {
   const fileContents = `${frontMatter}\n\n${body}`;
   const formatedCreatedAt = moment(createdAt).format('YYYY-MM-DD');
 
-  const filePathPrefix = `/data/collections/${languageCode}/activities/${formatedCreatedAt}/`;
+  const filePathPrefix = `/data/collections/${languageCode}/activities/${formatedCreatedAt}_`;
 
   const kebabedTitle = unidecode(caseFormater.kebab(title)).replace('"', '');
   // .substring(0, 64);

@@ -38,7 +38,7 @@ const getLanguageFilter = languageCode => ({
 });
 
 const getSlug = (withDate, languageCode) =>
-  `${withDate ? '{{year}}-{{month}}-{{day}}' : ''}-{{slug}}`;
+  `${withDate ? '{{year}}-{{month}}-{{day}}' : ''}_{{slug}}`;
 
 const getContentTypeField = contentType => ({
   name: 'contentType',
