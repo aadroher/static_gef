@@ -28,7 +28,7 @@ const parseActivityPage = pageData => {
     createdAt,
     languageCode,
     visible,
-    title,
+    title
   };
   const body = getMarkdown(
     $('.field-name-body')
@@ -53,7 +53,7 @@ const parseActivityPage = pageData => {
     createdAt,
     body,
     filePath,
-    fileContents,
+    fileContents
   };
 };
 
@@ -65,7 +65,7 @@ const buildIndexPageData = ({ originUrl, languageCode, title, body }) => {
     contentType,
     languageCode,
     pageCode,
-    title,
+    title
   };
 
   const frontMatter = `---\n${yaml.stringify(frontMatterData)}---`;
@@ -79,7 +79,7 @@ const buildIndexPageData = ({ originUrl, languageCode, title, body }) => {
     title,
     body,
     filePath,
-    fileContents,
+    fileContents
   };
 };
 
@@ -103,7 +103,7 @@ const parseActivitySectionVersionPage = async sectionVersionPageData => {
     originUrl,
     languageCode,
     title,
-    body,
+    body
   });
 
   const activityPagesData = await Promise.all(
@@ -114,7 +114,7 @@ const parseActivitySectionVersionPage = async sectionVersionPageData => {
         getPageRawText(url).then(pageRawText => ({
           originUrl: url,
           languageCode,
-          pageRawText,
+          pageRawText
         }))
       )
   );
@@ -123,7 +123,7 @@ const parseActivitySectionVersionPage = async sectionVersionPageData => {
 
   return {
     index,
-    activities,
+    activities
   };
 };
 
@@ -135,15 +135,15 @@ const parseActivitySectionVersion = async sectionVersionData => {
   const contents = parsedPages.reduce(
     (parsedPages, { index, activities }) => ({
       index,
-      activities: [...parsedPages.activities, ...activities],
+      activities: [...parsedPages.activities, ...activities]
     }),
     {
-      activities: [],
+      activities: []
     }
   );
   return {
     languageCode,
-    ...contents,
+    ...contents
   };
 };
 
@@ -154,7 +154,7 @@ const parseActivitiesSection = async sectionData => {
   );
   return {
     name,
-    versions: parsedVersions,
+    versions: parsedVersions
   };
 };
 

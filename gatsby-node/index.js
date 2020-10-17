@@ -3,7 +3,7 @@ const { createFilePath } = require('gatsby-source-filesystem');
 
 const onCreateNode = ({ node, getNode, actions }) => {
   const {
-    internal: { type },
+    internal: { type }
   } = node;
   const { createNodeField } = actions;
   if (type === 'MarkdownRemark') {
@@ -11,7 +11,7 @@ const onCreateNode = ({ node, getNode, actions }) => {
     createNodeField({
       node,
       name: 'slug',
-      value: slug,
+      value: slug
     });
   }
 };
@@ -39,7 +39,7 @@ const createPages = async ({ graphql, actions }) => {
 
   data.allMarkdownRemark.edges.forEach(({ node }) => {
     const {
-      fields: { slug },
+      fields: { slug }
     } = node;
     const pagePath = slug.replace('/collections', '');
     console.log({ pagePath });
@@ -47,13 +47,13 @@ const createPages = async ({ graphql, actions }) => {
       path: pagePath,
       component: path.resolve(`./src/templates/activity.jsx`),
       context: {
-        slug,
-      },
+        slug
+      }
     });
   });
 };
 
 module.exports = {
   onCreateNode,
-  createPages,
+  createPages
 };

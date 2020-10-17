@@ -13,7 +13,6 @@
   "dependencies": {
     "babel-plugin-styled-components": "^1.10.0",
     "cheerio": "^1.0.0-rc.3",
-    "eslint": "^5.16.0",
     "gatsby": "^2.24.80",
     "gatsby-cli": "^2.12.101",
     "gatsby-plugin-netlify-cms": "^4.1.1",
@@ -31,11 +30,12 @@
   },
   "devDependencies": {
     "case": "^1.6.1",
+    "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.3.0",
-    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "gatsby-source-filesystem": "^2.3.31",
     "moment": "^2.24.0",
-    "prettier": "^1.18.2",
+    "prettier": "^1.19.1",
     "unidecode": "^0.1.8",
     "yaml": "^1.6.0"
   }
