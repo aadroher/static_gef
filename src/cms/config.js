@@ -38,7 +38,7 @@ const getLanguageFilter = languageCode => ({
 });
 
 const getSlug = (withDate, languageCode) =>
-  `${withDate ? '{{year}}-{{month}}-{{day}}' : ''}-{{slug}}`.substring(0, 64);
+  `${withDate ? '{{year}}-{{month}}-{{day}}' : ''}-{{slug}}`;
 
 const getContentTypeField = contentType => ({
   name: 'contentType',
@@ -139,6 +139,7 @@ const collections = schemaGenerators
   .flat();
 
 const config = {
+  local_backend: true,
   load_config_file: false,
   backend,
   media_folder: mediaFolder,

@@ -1,8 +1,13 @@
 import { resolve } from 'path';
+import { createFilePath } from 'gatsby-source-filesystem';
 
 const schema = /* GraphQL */ `
   type Activity implements Node {
-    name: String
+    title: String
+    languageCode: String
+    visible: Boolean
+    createdAt: DateTime
+    htmlContent: String
   }
 `;
 
@@ -15,7 +20,10 @@ const onCreateNode = ({ node, getNode, actions }) => {
   const {
     internal: { type }
   } = node;
-  const { createNodeField, createNode, createFilePath } = actions;
+  console.log({
+    type
+  });
+  const { createNodeField, createNode } = actions;
   if (type === 'MarkdownRemark') {
     const slug = createFilePath({ node, getNode, basePath: 'pages' });
     console.log(slug);
@@ -33,7 +41,7 @@ const createPages = async ({ graphql, actions }) => {
     {
       allMarkdownRemark {
         edges {
-          node {
+          nodes {
             frontmatter {
               title
               languageCode
@@ -47,19 +55,19 @@ const createPages = async ({ graphql, actions }) => {
 
   console.log(data);
 
-  // data.allMarkdownRemark.edges.forEach(({ node }) => {
-  //   const {
-  //     fields: { slug }
-  //   } = node;
-  //   const pagePath = slug.replace('/collections', '');
-  //   createPage({
-  //     path: pagePath,
-  //     component: resolve(`./src/templates/activity.jsx`),
-  //     context: {
-  //       slug
-  //     }
-  //   });
-  // });
+  data.allMarkdownRemark.edges.forEach(({ node }) => {
+    const {
+      fields: { slug }
+    } = node;
+    const pagePath = slug.replace('/collections', '');
+    createPage({
+      path: pagePath,
+      component: resolve(`./src/templates/activity.jsx`),
+      context: {
+        slug
+      }
+    });
+  });
 };
 
 export { createSchemaCustomization, onCreateNode, createPages };

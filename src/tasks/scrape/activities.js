@@ -42,9 +42,8 @@ const parseActivityPage = pageData => {
 
   const filePathPrefix = `/data/collections/${languageCode}/activities/${formatedCreatedAt}/`;
 
-  const kebabedTitle = unidecode(caseFormater.kebab(title))
-    .replace('"', '')
-    .substring(0, 64);
+  const kebabedTitle = unidecode(caseFormater.kebab(title)).replace('"', '');
+  // .substring(0, 64);
   const filePath = `${filePathPrefix}${kebabedTitle}.md`;
 
   return {
