@@ -138,6 +138,7 @@ const collections = schemaGenerators
 const config = {
   locale: 'ca',
   local_backend: true,
+  publish_mode: 'editorial_workflow',
   load_config_file: false,
   backend,
   media_folder: mediaFolder,
