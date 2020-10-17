@@ -2,11 +2,8 @@ const gitlabAppId =
   '6a0450f42ec3213087bc3459fe4695ffb11e77e9aac312228dd95eab95197acc';
 
 const backend = {
-  name: 'gitlab',
-  repo: 'aadroher/gef',
-  auth_type: 'implicit',
-  app_id: gitlabAppId,
-  branch: 'master'
+  name: 'github',
+  repo: 'aadroher/static_gef'
 };
 
 const mediaFolder = 'static/images/uploads';
@@ -139,7 +136,9 @@ const collections = schemaGenerators
   .flat();
 
 const config = {
+  locale: 'ca',
   local_backend: true,
+  publish_mode: 'editorial_workflow',
   load_config_file: false,
   backend,
   media_folder: mediaFolder,
