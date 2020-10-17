@@ -24,6 +24,7 @@
     "netlify-cms-app": "^2.12.27",
     "netlify-cms-locales": "^1.18.2",
     "node-fetch": "^2.6.1",
+    "pluralize": "^8.0.0",
     "pure-md5": "^0.1.9",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
