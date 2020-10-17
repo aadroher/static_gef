@@ -3,7 +3,7 @@ module.exports = {
     title: "Grup d'Estudis Fenomenològics",
     siteUrl: 'https://aadroher.gitlab.io',
     pathPrefix: '/gef',
-    description: "Public site for the Grup d'Estudis Fenomenològics",
+    description: "Public site for the Grup d'Estudis Fenomenològics"
   },
   plugins: [
     {
@@ -11,8 +11,8 @@ module.exports = {
       options: {
         name: 'data',
         path: `${__dirname}/data/`,
-        ignore: [`**/\.*`],
-      },
+        ignore: [`**/\.*`]
+      }
     },
     {
       resolve: 'gatsby-transformer-remark',
@@ -26,22 +26,22 @@ module.exports = {
         // GitHub Flavored Markdown mode (default: true)
         gfm: true,
         // Plugins configs
-        plugins: [],
-      },
+        plugins: []
+      }
     },
     {
       resolve: 'gatsby-plugin-styled-components',
       options: {
         // Add any options here
-        minify: false,
-      },
+        minify: false
+      }
     },
     {
       resolve: 'gatsby-plugin-netlify-cms',
       options: {
         manualInit: true,
-        modulePath: `${__dirname}/src/cms/cms.js`,
-      },
-    },
-  ],
+        modulePath: `${__dirname}/src/cms/cms.js`
+      }
+    }
+  ]
 };

@@ -14,7 +14,7 @@
     "babel-plugin-styled-components": "^1.10.0",
     "cheerio": "^1.0.0-rc.3",
     "gatsby": "^2.24.80",
-    "gatsby-cli": "^2.12.101",
+    "gatsby-cli": "^2.12.109",
     "gatsby-plugin-netlify-cms": "^4.1.1",
     "gatsby-plugin-styled-components": "^3.0.7",
     "gatsby-transformer-remark": "^2.3.12",

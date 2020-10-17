@@ -5,31 +5,36 @@ import { md5 } from 'pure-md5';
 import Activity from '../components/Activity';
 import MainLayout from '../layouts/MainLayout';
 
-const Activities = ({
-  data: {
-    allFile: { edges },
-  },
-}) => (
-  <div className="activities-page">
-    <h1>Activitats</h1>
-    <div>
-      <a name="top"></a>
-      {edges.map(
-        ({
-          node: {
-            childMarkdownRemark: {
-              frontmatter: { title },
-              html,
-            },
-          },
-        }) => {
-          const key = md5(title + html);
-          return <Activity key={key} title={title} html={html} />;
-        }
-      )}
+const Activities = props => {
+  const {
+    data: {
+      allFile: { edges }
+    }
+  } = props;
+
+  console.log(props);
+  return (
+    <div className="activities-page">
+      <h1>Activitats</h1>
+      <div>
+        <a name="top"></a>
+        {edges.map(
+          ({
+            node: {
+              childMarkdownRemark: {
+                frontmatter: { title },
+                html
+              }
+            }
+          }) => {
+            const key = md5(title + html);
+            return <Activity key={key} title={title} html={html} />;
+          }
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const ActivitiesPage = props => (
   <MainLayout>
@@ -37,38 +42,20 @@ const ActivitiesPage = props => (
   </MainLayout>
 );
 
-export const getQuery = languageCode => graphql`
-  query ActivitiesQuery {
-    allMarkdownRemark(filter: { frontmatter: { languageCode: { eq: ${languageCode} } } }) {
-      nodes {
-        id
-        frontmatter {
-          title
-          contentType
-          languageCode
-          pageCode
-          createdAt
-          visible
-        }
-        rawMarkdownBody
-      }
-    }
-  }
-`;
-
-// export const query = graphql`
+// export const getQuery = languageCode => graphql`
 //   query ActivitiesQuery {
-//     allFile(filter: { extension: { eq: "md" } }) {
-//       edges {
-//         node {
-//           id
-//           childMarkdownRemark {
-//             frontmatter {
-//               title
-//             }
-//             html
-//           }
+//     allMarkdownRemark(filter: { frontmatter: { languageCode: { eq: "ca" } } }) {
+//       nodes {
+//         id
+//         frontmatter {
+//           title
+//           contentType
+//           languageCode
+//           pageCode
+//           createdAt
+//           visible
 //         }
+//         rawMarkdownBody
 //       }
 //     }
 //   }

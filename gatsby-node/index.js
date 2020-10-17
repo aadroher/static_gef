@@ -42,7 +42,6 @@ const createPages = async ({ graphql, actions }) => {
       fields: { slug }
     } = node;
     const pagePath = slug.replace('/collections', '');
-    console.log({ pagePath });
     createPage({
       path: pagePath,
       component: path.resolve(`./src/templates/activity.jsx`),
