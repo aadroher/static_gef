@@ -6,7 +6,7 @@ const backend = {
   repo: 'aadroher/gef',
   auth_type: 'implicit',
   app_id: gitlabAppId,
-  branch: 'master',
+  branch: 'master'
 };
 
 const mediaFolder = 'static/images/uploads';
@@ -14,27 +14,27 @@ const publicFolder = '/images/uploads';
 
 const slug = {
   encoding: 'ascii',
-  clean_accents: true,
+  clean_accents: true
 };
 
 const languages = [
   {
     languageCode: 'ca',
-    name: 'Català',
+    name: 'Català'
   },
   {
     languageCode: 'es',
-    name: 'Castellà',
+    name: 'Castellà'
   },
   {
     languageCode: 'en',
-    name: 'Anglès',
-  },
+    name: 'Anglès'
+  }
 ];
 
 const getLanguageFilter = languageCode => ({
   field: 'languageCode',
-  value: languageCode,
+  value: languageCode
 });
 
 const getSlug = (withDate, languageCode) =>
@@ -44,13 +44,13 @@ const getContentTypeField = contentType => ({
   name: 'contentType',
   widget: 'hidden',
   default: contentType,
-  required: true,
+  required: true
 });
 
 const getCreatedAtField = () => ({
   name: 'createdAt',
   label: 'Creat el',
-  widget: 'datetime',
+  widget: 'datetime'
 });
 
 const getLanguageCodeField = defaultValue => ({
@@ -60,38 +60,38 @@ const getLanguageCodeField = defaultValue => ({
   options: [
     {
       label: 'Català',
-      value: 'ca',
+      value: 'ca'
     },
     {
       label: 'Castellà',
-      value: 'es',
+      value: 'es'
     },
     {
       label: 'Anglès',
-      value: 'en',
-    },
+      value: 'en'
+    }
   ],
-  default: defaultValue,
+  default: defaultValue
 });
 
 const getVisibleField = () => ({
   name: 'visible',
   label: 'Visible',
   widget: 'boolean',
-  default: false,
+  default: false
 });
 
 const getTitleField = () => ({
   name: 'title',
   label: 'Títol',
   widget: 'string',
-  required: true,
+  required: true
 });
 
 const getBodyField = () => ({
   name: 'body',
   label: 'Cos del Text',
-  widget: 'markdown',
+  widget: 'markdown'
 });
 
 const getActivitiesSchema = ({ languageCode }) => ({
@@ -108,8 +108,8 @@ const getActivitiesSchema = ({ languageCode }) => ({
     getLanguageCodeField(languageCode),
     getVisibleField(),
     getTitleField(),
-    getBodyField(),
-  ],
+    getBodyField()
+  ]
 });
 
 const getPagesSchema = ({ languageCode }) => ({
@@ -124,12 +124,12 @@ const getPagesSchema = ({ languageCode }) => ({
     {
       name: 'pageCode',
       widget: 'hidden',
-      required: true,
+      required: true
     },
     getLanguageCodeField(languageCode),
     getTitleField(),
-    getBodyField(),
-  ],
+    getBodyField()
+  ]
 });
 
 const schemaGenerators = [getActivitiesSchema, getPagesSchema];
@@ -144,7 +144,7 @@ const config = {
   media_folder: mediaFolder,
   public_folder: publicFolder,
   slug,
-  collections,
+  collections
 };
 
 export default config;
