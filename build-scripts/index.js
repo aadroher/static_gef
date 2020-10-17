@@ -1,7 +1,4 @@
-const path = require('path');
-const { createFilePath } = require('gatsby-source-filesystem');
-var { graphql, buildSchema } = require('graphql');
-const activityType = require('./types/activity.graphql');
+import { resolve } from 'path';
 
 const schema = /* GraphQL */ `
   type Activity implements Node {
@@ -18,9 +15,10 @@ const onCreateNode = ({ node, getNode, actions }) => {
   const {
     internal: { type }
   } = node;
-  const { createNodeField, createNode } = actions;
+  const { createNodeField, createNode, createFilePath } = actions;
   if (type === 'MarkdownRemark') {
     const slug = createFilePath({ node, getNode, basePath: 'pages' });
+    console.log(slug);
     createNodeField({
       node,
       name: 'slug',
@@ -36,9 +34,6 @@ const createPages = async ({ graphql, actions }) => {
       allMarkdownRemark {
         edges {
           node {
-            fields {
-              slug
-            }
             frontmatter {
               title
               languageCode
@@ -50,23 +45,21 @@ const createPages = async ({ graphql, actions }) => {
     }
   `);
 
-  data.allMarkdownRemark.edges.forEach(({ node }) => {
-    const {
-      fields: { slug }
-    } = node;
-    const pagePath = slug.replace('/collections', '');
-    createPage({
-      path: pagePath,
-      component: path.resolve(`./src/templates/activity.jsx`),
-      context: {
-        slug
-      }
-    });
-  });
+  console.log(data);
+
+  // data.allMarkdownRemark.edges.forEach(({ node }) => {
+  //   const {
+  //     fields: { slug }
+  //   } = node;
+  //   const pagePath = slug.replace('/collections', '');
+  //   createPage({
+  //     path: pagePath,
+  //     component: resolve(`./src/templates/activity.jsx`),
+  //     context: {
+  //       slug
+  //     }
+  //   });
+  // });
 };
 
-module.exports = {
-  createSchemaCustomization,
-  onCreateNode,
-  createPages
-};
+export { createSchemaCustomization, onCreateNode, createPages };
