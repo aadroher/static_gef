@@ -26,7 +26,7 @@ const buildIndexPageData = ({ originUrl, languageCode, title, body }) => {
   const fileContents = `${frontMatter}\n\n${body}`;
 
   const filePathPrefix = `/data/collections/${languageCode}/pages/`;
-  const filePath = `${filePathPrefix}activities.md`;
+  const filePath = `${filePathPrefix}terms.md`;
 
   return {
     originUrl,
