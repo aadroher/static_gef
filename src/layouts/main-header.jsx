@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import MainMenu from './MainMenu';
+import MainMenu from './main-menu';
 
 const HeadingContainer = styled.div`
   background-color: dimgray;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import styledNormalize from 'styled-normalize';
 
-import Header from './Header';
+import Header from './main-header';
 
 const GlobalStyles = createGlobalStyle`
   ${styledNormalize}

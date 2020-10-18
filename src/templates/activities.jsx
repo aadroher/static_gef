@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 
 import Activity from '../components/Activity';
-import MainLayout from '../layouts/MainLayout';
+import MainLayout from '../layouts/main-layout';
 
 export const query = graphql`
   query Activities($id: String, $collectionIds: [String]) {
