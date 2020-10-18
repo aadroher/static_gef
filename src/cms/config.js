@@ -1,6 +1,3 @@
-const gitlabAppId =
-  '6a0450f42ec3213087bc3459fe4695ffb11e77e9aac312228dd95eab95197acc';
-
 const backend = {
   name: 'github',
   repo: 'aadroher/static_gef'
@@ -97,7 +94,7 @@ const getActivitiesSchema = ({ languageCode }) => ({
   label_singular: `Activitat (${languageCode})`,
   folder: `data/collections/${languageCode}/activities`,
   create: true,
-  slug: getSlug(true, languageCode),
+  slug: getSlug(true),
   summary: '{{title}}',
   fields: [
     getContentTypeField('activity'),
@@ -115,7 +112,7 @@ const getPagesSchema = ({ languageCode }) => ({
   label_singular: `Pàgina (${languageCode})`,
   folder: `data/collections/${languageCode}/pages`,
   create: false,
-  slug: getSlug(false, languageCode),
+  slug: getSlug(false),
   fields: [
     getContentTypeField('page'),
     {
@@ -129,7 +126,24 @@ const getPagesSchema = ({ languageCode }) => ({
   ]
 });
 
-const schemaGenerators = [getActivitiesSchema, getPagesSchema];
+const getTermsSchema = ({ languageCode }) => ({
+  name: `terms_${languageCode}`,
+  label: `Termes (${languageCode})`,
+  label_singular: `Terme (${languageCode})`,
+  folder: `data/collections/${languageCode}/terms`,
+  create: false,
+  slug: getSlug(false),
+  summary: '{{title}}',
+  fields: [
+    getContentTypeField('term'),
+    getLanguageCodeField(languageCode),
+    getTitleField(),
+    getTitleField(),
+    getBodyField()
+  ]
+});
+
+const schemaGenerators = [getActivitiesSchema, getPagesSchema, getTermsSchema];
 
 const collections = schemaGenerators
   .map(schemaGenerator => languages.map(schemaGenerator))
