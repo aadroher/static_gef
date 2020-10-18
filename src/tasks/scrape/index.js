@@ -4,12 +4,20 @@ import { saveFile } from './save';
 
 const main = async () => {
   const sections = await getSections(config);
-  const { versions } = sections.find(({ name }) => name === 'activities');
-  const activities = versions
+  const [
+    { versions: activitiesVersions },
+    { versions: vocabularyVersions }
+  ] = sections.filter(({ name }) =>
+    ['activities', 'vocabulary'].includes(name)
+  );
+  const activities = activitiesVersions
     .map(({ index, activities }) => [index, ...activities])
     .flat();
-  console.log(activities);
   await Promise.all(activities.map(saveFile));
+  const terms = vocabularyVersions
+    .map(({ index, terms }) => [index, ...terms])
+    .flat();
+  await Promise.all(terms.map(saveFile));
 };
 
 main();

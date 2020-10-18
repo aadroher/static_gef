@@ -1,0 +1,14 @@
+---
+contentType: term
+languageCode: ca
+visible: true
+title: Intencionalitat operant (fungierende Intentionalität)
+---
+
+_Autor_: Josep Maria Bech
+
+[Enllaç a la publicació](http://revistes.iec.cat/index.php/ASCF/article/view/139492/138119)
+
+**Resum.** A la intencionalitat d’acte o tètica, fonament dels actes de la consciència, el pensament fenomenològic sol contraposar la intencionalitat operant o latent (en alemany _fungierende Intentionalität_). Aquest article n’analitza les múltiples vessants, en descriu el sorgiment a Husserl i Fink, la seva hegemonia en el pensament de Merleau-Ponty, i explora l’impuls revisionista que va introduir en la fenomenologia. Així apareix la intencionalitat operant com la unitat natural i antepredicativa del món i de la nostra pròpia vida. Traspua en el nostre paisatge interior (desitjos, valoracions, projectes, records) més palesament que en el coneixement objectiu. Revela que una constitutiva passivitat, alhora anònima, opaca, involuntària i cega, sosté i condiciona tota activitat intencional, i assenyala que el cos com a motricitat és l’executor espontani i universal que ha de romandre anònim perquè precedeix qualsevol reflexió objectivadora. Aquest rerefons obscur que mina des de dins tota activitat constituent, l’anàlisi de la intencionalitat operant el pot dur a la llum si bescanviem la tematització directa per una reorientació «arqueològica» de la fenomenologia.
+
+**Abstract**. The phenomenological tradition uses to distinguish between «act intentionality» (sometimes called «thetic» or «propositional» as well, and deemed to ground all acts of consciousness) and «operant» or «latent» intentionality (_fungierende Intentionalität_ in German). The manifold aspects of this latter, all-embracing intentionality will be dealt with in this paper. Its origins in the thought of Husserl and Fink, alongside its ascent in Merleau-Ponty’s philosophy, are also going to be accounted for. Another main concern will be its revisionist effect in a variety of phenomenological approaches. Thus the «operant intentionality» is going to appear as the natural unifying might that brings about the human view both of the world and of ourselves. It amounts, indeed, to an ante-predicative ground that lurks behind our inner landscape (yearnings, judgments, schemes, recollections) in a much sharper way than in any cognitive demeanour. With its aid we will observe that a nameless, opaque, unthinking and sightless passivity both buttresses and outlines every intentional performance. This will make clear the leading role of the body, which nevertheless has to remain unseen as it paves the way to all objectivities. The dark background disclosed by our inquiry, while rendering frail all constituent achievements, can still be brought to light provided we swap direct thematizing procedures by a kind of «archaeological» redirection of phenomenology.

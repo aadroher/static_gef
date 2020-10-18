@@ -1,4 +1,5 @@
 import parseActivitiesSection from './activities';
+import parseVocabularySection from './vocabulary';
 import { getPageRawText } from './get';
 
 const getPage = async ({ baseUrl, languageCode, node, i }) => {
@@ -9,7 +10,7 @@ const getPage = async ({ baseUrl, languageCode, node, i }) => {
     languageCode,
     node,
     i,
-    contents,
+    contents
   };
 };
 
@@ -28,7 +29,7 @@ const fetchSections = async ({ baseUrl, languages, pages }) =>
       );
       return {
         name,
-        versions,
+        versions
       };
     })
   );
@@ -40,6 +41,8 @@ const parseSections = async sectionsData =>
       switch (name) {
         case 'activities':
           return parseActivitiesSection(sectionData);
+        case 'vocabulary':
+          return parseVocabularySection(sectionData);
         default:
           return Promise.resolve(sectionData);
       }
@@ -47,7 +50,6 @@ const parseSections = async sectionsData =>
   );
 
 const getSections = async config => {
-  // return fetchSections(config);
   const sectionsData = await fetchSections(config);
   const parsedSections = await parseSections(sectionsData);
   return parsedSections;

@@ -12,52 +12,9 @@ const { baseUrl } = config;
 
 const getMarkdown = htmlText => new TurdownService().turndown(htmlText);
 
-const parseActivityPage = pageData => {
-  const { originUrl, pageRawText, languageCode } = pageData;
-  const contentType = 'activity';
-  const $ = cheerio.load(pageRawText);
-  const createdAt = $('[property="dc:date dc:created"]').attr('content');
-  const title = getMarkdown(
-    $('#page-title')
-      .first()
-      .html()
-  );
-  const visible = true;
-  const frontMatterData = {
-    contentType,
-    createdAt,
-    languageCode,
-    visible,
-    title
-  };
-  const body = getMarkdown(
-    $('.field-name-body')
-      .first()
-      .html()
-  );
-
-  const frontMatter = `---\n${yaml.stringify(frontMatterData)}---`;
-  const fileContents = `${frontMatter}\n\n${body}`;
-  const formatedCreatedAt = moment(createdAt).format('YYYY-MM-DD');
-
-  const filePathPrefix = `/data/collections/${languageCode}/activities/${formatedCreatedAt}_`;
-
-  const kebabedTitle = unidecode(caseFormater.kebab(title)).replace('"', '');
-  const filePath = `${filePathPrefix}${kebabedTitle}.md`;
-
-  return {
-    originUrl,
-    title,
-    createdAt,
-    body,
-    filePath,
-    fileContents
-  };
-};
-
 const buildIndexPageData = ({ originUrl, languageCode, title, body }) => {
   const contentType = 'page';
-  const pageCode = 'activities';
+  const pageCode = 'terms';
 
   const frontMatterData = {
     contentType,
@@ -81,7 +38,46 @@ const buildIndexPageData = ({ originUrl, languageCode, title, body }) => {
   };
 };
 
-const parseActivitySectionVersionPage = async sectionVersionPageData => {
+const parseTermPage = pageData => {
+  const { originUrl, pageRawText, languageCode } = pageData;
+  const contentType = 'term';
+  const $ = cheerio.load(pageRawText);
+  const title = getMarkdown(
+    $('#page-title')
+      .first()
+      .html()
+  );
+  const visible = true;
+  const frontMatterData = {
+    contentType,
+    languageCode,
+    visible,
+    title
+  };
+  const body = getMarkdown(
+    $('[property="content:encoded"]')
+      .first()
+      .html()
+  );
+
+  const frontMatter = `---\n${yaml.stringify(frontMatterData)}---`;
+  const fileContents = `${frontMatter}\n\n${body}`;
+
+  const filePathPrefix = `/data/collections/${languageCode}/terms/`;
+
+  const kebabedTitle = unidecode(caseFormater.kebab(title)).replace('"', '');
+  const filePath = `${filePathPrefix}${kebabedTitle}.md`;
+
+  return {
+    originUrl,
+    title,
+    body,
+    filePath,
+    fileContents
+  };
+};
+
+const parseVocabularySectionVersionPage = async sectionVersionPageData => {
   const { languageCode, originUrl, contents } = sectionVersionPageData;
   const $ = cheerio.load(contents);
 
@@ -104,39 +100,40 @@ const parseActivitySectionVersionPage = async sectionVersionPageData => {
     body
   });
 
-  const activityPagesData = await Promise.all(
-    $('.view-actualitat h2 a')
+  const termPagesData = await Promise.all(
+    $('.view-vocabulari .views-field-title a')
       .toArray()
       .map(anchor => `${baseUrl}${$(anchor).attr('href')}`)
-      .map(url =>
-        getPageRawText(url).then(pageRawText => ({
+      .map(async url => {
+        const pageRawText = await getPageRawText(url);
+        return {
           originUrl: url,
           languageCode,
           pageRawText
-        }))
-      )
+        };
+      })
   );
 
-  const activities = activityPagesData.map(parseActivityPage);
+  const terms = termPagesData.map(parseTermPage);
 
   return {
     index,
-    activities
+    terms
   };
 };
 
-const parseActivitySectionVersion = async sectionVersionData => {
+const parseVocabularySectionVersion = async sectionVersionData => {
   const { languageCode, pages } = sectionVersionData;
   const parsedPages = await Promise.all(
-    pages.map(parseActivitySectionVersionPage)
+    pages.map(parseVocabularySectionVersionPage)
   );
   const contents = parsedPages.reduce(
-    (parsedPages, { index, activities }) => ({
+    (parsedPages, { index, terms }) => ({
       index,
-      activities: [...parsedPages.activities, ...activities]
+      terms: [...parsedPages.terms, ...terms]
     }),
     {
-      activities: []
+      terms: []
     }
   );
   return {
@@ -145,10 +142,10 @@ const parseActivitySectionVersion = async sectionVersionData => {
   };
 };
 
-const parseActivitiesSection = async sectionData => {
+const parseVocabularySection = async sectionData => {
   const { name, versions } = sectionData;
   const parsedVersions = await Promise.all(
-    versions.map(parseActivitySectionVersion)
+    versions.map(parseVocabularySectionVersion)
   );
   return {
     name,
@@ -156,4 +153,4 @@ const parseActivitiesSection = async sectionData => {
   };
 };
 
-export default parseActivitiesSection;
+export default parseVocabularySection;
