@@ -1,6 +1,5 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import { md5 } from 'pure-md5';
 
 import Activity from '../components/Activity';
 import MainLayout from '../layouts/MainLayout';
@@ -10,7 +9,6 @@ export const query = graphql`
     pageMarkdown: markdownRemark(id: { eq: $id }) {
       frontmatter {
         contentType
-        createdAt
         languageCode
         title
       }
