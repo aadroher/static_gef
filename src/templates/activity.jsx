@@ -3,7 +3,7 @@ import { graphql } from 'gatsby';
 
 export const query = graphql`
   query Activity($id: String) {
-    markdownRemark(parent: { id: { eq: $id } }) {
+    markdownRemark(id: { eq: $id }) {
       frontmatter {
         title
         visible
@@ -12,6 +12,7 @@ export const query = graphql`
         contentType
       }
       html
+      rawMarkdownBody
     }
   }
 `;
