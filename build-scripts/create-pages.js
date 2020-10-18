@@ -19,79 +19,45 @@ const markdownQuery = /* GraphQL */ `
       nodes {
         parent {
           ... on File {
+            id
             relativePath
           }
         }
-        frontmatter {
-          title
-          languageCode
-          contentType
-          createdAt
-        }
-        html
       }
     }
   }
 `;
 
-const getActivity = ({
-  frontmatter: { title, languageCode, createdAt },
-  html
-}) => ({
-  title,
-  languageCode,
-  createdAt,
-  html
-});
-
-const getCollection = async ({ graphql, contentType, languageCode }) => {
-  const { data } = await graphql(markdownQuery, {
-    contentType,
-    languageCode
-  });
-
-  const collectionItems = data.allMarkdownRemark.nodes.map(
-    ({ parent: { relativePath }, frontmatter, html }) => ({
-      relativePath,
-      frontmatter,
-      html
-    })
-  );
-
-  return collectionItems;
-};
-
-const getPagePath = relativePath =>
+const getItemPagePath = relativePath =>
   relativePath
     .replace('collections', '')
     .replace('_', '/')
     .replace('.md', '');
-
-const createCollectionPages = ({ createPage, contentType, collection }) => {
-  collection.forEach(({ relativePath, frontmatter, html }) => {
-    createPage({
-      path: getPagePath(relativePath),
-      component: resolve(`./src/templates/${contentType}.jsx`),
-      context: getActivity({
-        frontmatter,
-        html
-      })
-    });
-  });
-};
 
 const createPages = ({ graphql, actions: { createPage } }) =>
   Promise.all(
     languageCodes
       .map(languageCode =>
         contentTypes.map(async contentType => {
-          const collection = await getCollection({
-            graphql,
+          const { data } = await graphql(markdownQuery, {
             contentType,
             languageCode
           });
 
-          createCollectionPages({ createPage, contentType, collection });
+          // Create item pages
+          data.allMarkdownRemark.nodes.forEach(
+            ({ parent: { id, relativePath } }) => {
+              createPage({
+                path: getItemPagePath(relativePath),
+                component: resolve(`./src/templates/${contentType}.jsx`),
+                context: {
+                  id,
+                  languageCode,
+                  contentType
+                }
+              });
+            }
+          );
         })
       )
       .flat()
