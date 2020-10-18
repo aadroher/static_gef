@@ -137,7 +137,7 @@ const getTermsSchema = ({ languageCode }) => ({
   fields: [
     getContentTypeField('term'),
     getLanguageCodeField(languageCode),
-    getTitleField(),
+    getVisibleField(),
     getTitleField(),
     getBodyField()
   ]
@@ -150,8 +150,8 @@ const collections = schemaGenerators
   .flat();
 
 const config = {
+  // local_backend: true,
   locale: 'ca',
-  local_backend: true,
   publish_mode: 'editorial_workflow',
   load_config_file: false,
   backend,
