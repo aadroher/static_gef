@@ -1,6 +1,5 @@
 import cheerio from 'cheerio';
 import TurdownService from 'turndown';
-import moment from 'moment';
 import yaml from 'yaml';
 import caseFormater from 'case';
 import unidecode from 'unidecode';
@@ -27,7 +26,7 @@ const buildIndexPageData = ({ originUrl, languageCode, title, body }) => {
   const fileContents = `${frontMatter}\n\n${body}`;
 
   const filePathPrefix = `/data/collections/${languageCode}/pages/`;
-  const filePath = `${filePathPrefix}activities.md`;
+  const filePath = `${filePathPrefix}terms.md`;
 
   return {
     originUrl,

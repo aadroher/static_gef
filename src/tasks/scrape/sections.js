@@ -52,6 +52,7 @@ const parseSections = async sectionsData =>
 const getSections = async config => {
   const sectionsData = await fetchSections(config);
   const parsedSections = await parseSections(sectionsData);
+  // console.log(parsedSections[1].versions[0]);
   return parsedSections;
 };
 
