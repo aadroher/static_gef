@@ -4,6 +4,7 @@ import { createGlobalStyle } from 'styled-components';
 import styledNormalize from 'styled-normalize';
 
 import Header from './header';
+import MainMenu from './main-menu';
 
 const GlobalStyles = createGlobalStyle`
   ${styledNormalize}
@@ -14,28 +15,27 @@ const GlobalStyles = createGlobalStyle`
     a {
       color: mediumvioletred;
     }
+
+    font-family: system-ui;
+    color: black;
+    width: 100%;
   } 
 `;
 
-const MainLayoutContainer = styled.div`
-  color: black;
-  padding-top: 0;
-  width: 100%;
-`;
-
-const ContentContainer = styled.div`
+const ContentWrapper = styled.div`
   margin: auto;
-  max-width: 800px;
+  max-width: 60rem;
   padding: 1rem;
 `;
 
 const MainLayout = ({ children }) => (
   <>
     <GlobalStyles />
-    <MainLayoutContainer className="main-container">
-      <Header />
-      <ContentContainer>{children}</ContentContainer>
-    </MainLayoutContainer>
+    <Header />
+    <ContentWrapper>
+      <MainMenu locale="ca" />
+      {children}
+    </ContentWrapper>
   </>
 );
 

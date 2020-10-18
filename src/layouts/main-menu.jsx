@@ -1,35 +1,64 @@
 import React from 'react';
 import styled from 'styled-components';
+import { graphql, useStaticQuery } from 'gatsby';
 
-const MainMenuContainer = styled.nav`
-  background-color: white;
-  margin: auto;
-  max-width: 800px;
-
-  & > ul {
-    margin: 0;
-    padding: 0;
-
-    & li {
-      list-style-position: outside;
-      list-style-type: none;
-      padding: 1rem;
-
-      &.active {
-        background-color: white;
-        text-align: center;
-        width: 5rem;
+const staticQuery = graphql`
+  query MenuItems {
+    indexPages: allSitePage(filter: { context: { isIndex: { eq: true } } }) {
+      nodes {
+        path
+        context {
+          id
+          isIndex
+          languageCode
+          collectionIds
+        }
       }
     }
   }
 `;
 
-const MainMenu = data => (
-  <MainMenuContainer className="main-menu">
-    <ul>
-      <li className="active">Activitats</li>
-    </ul>
-  </MainMenuContainer>
-);
+const MenuList = styled.ul`
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+
+  & li {
+    list-style-position: outside;
+    list-style-type: none;
+    padding: 1rem 0;
+
+    &.active {
+      background-color: white;
+      text-align: center;
+      width: 5rem;
+    }
+  }
+
+  & > li + li {
+    margin-left: 1rem;
+  }
+`;
+
+const getUrl = ({ locale, contentType }) => `/${locale}/${contentType}`;
+
+const MainMenu = ({ locale }) => {
+  const data = useStaticQuery(staticQuery);
+  console.log(data);
+
+  return (
+    <nav>
+      <MenuList>
+        <li>
+          <a href={getUrl({ locale, contentType: 'activities' })}>Activitats</a>
+        </li>
+        <li>
+          <a href={getUrl({ locale, contentType: 'terms' })}>Vocabulari</a>
+        </li>
+      </MenuList>
+    </nav>
+  );
+};
 
 export default MainMenu;
