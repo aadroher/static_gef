@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import pluralize from 'pluralize';
 
 const languageCodes = ['ca', 'en', 'es'];
-const contentTypes = ['activity'];
+const contentTypes = ['activity', 'term'];
 
 const collectionPageQuery = /* GraphQL */ `
   query($languageCode: String, $pageCode: String) {
