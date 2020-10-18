@@ -5,18 +5,40 @@ import { md5 } from 'pure-md5';
 import Activity from '../components/Activity';
 import MainLayout from '../layouts/MainLayout';
 
-const Activities = props => {
-  const {
-    data: {
-      allFile: { edges }
+export const query = graphql`
+  query Activities($id: String, $collectionIds: [String]) {
+    pageMarkdown: markdownRemark(id: { eq: $id }) {
+      frontmatter {
+        contentType
+        createdAt
+        languageCode
+        title
+      }
+      html
+      rawMarkdownBody
     }
-  } = props;
+    collectionMarkdown: allMarkdownRemark(
+      filter: { id: { in: $collectionIds } }
+    ) {
+      nodes {
+        frontmatter {
+          contentType
+          createdAt
+          languageCode
+          title
+        }
+        html
+        rawMarkdownBody
+      }
+    }
+  }
+`;
 
-  console.log(props);
-  return (
-    <div className="activities-page">
-      <h1>Activitats</h1>
-      <div>
+const Activities = ({ data }) => (
+  <div className="activities-page">
+    <h1>Activitats</h1>
+    <pre>{JSON.stringify(data, null, 2)}</pre>
+    {/* <div>
         <a name="top"></a>
         {edges.map(
           ({
@@ -31,34 +53,14 @@ const Activities = props => {
             return <Activity key={key} title={title} html={html} />;
           }
         )}
-      </div>
-    </div>
-  );
-};
+      </div> */}
+  </div>
+);
 
 const ActivitiesPage = props => (
   <MainLayout>
     <Activities {...props} />
   </MainLayout>
 );
-
-// export const getQuery = languageCode => graphql`
-//   query ActivitiesQuery {
-//     allMarkdownRemark(filter: { frontmatter: { languageCode: { eq: "ca" } } }) {
-//       nodes {
-//         id
-//         frontmatter {
-//           title
-//           contentType
-//           languageCode
-//           pageCode
-//           createdAt
-//           visible
-//         }
-//         rawMarkdownBody
-//       }
-//     }
-//   }
-// `;
 
 export default ActivitiesPage;
