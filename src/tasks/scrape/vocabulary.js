@@ -25,7 +25,7 @@ const buildIndexPageData = ({ originUrl, languageCode, title, body }) => {
   const frontMatter = `---\n${yaml.stringify(frontMatterData)}---`;
   const fileContents = `${frontMatter}\n\n${body}`;
 
-  const filePathPrefix = `/data/collections/${languageCode}/pages/`;
+  const filePathPrefix = `/data/collections/pages/${languageCode}/`;
   const filePath = `${filePathPrefix}terms.md`;
 
   return {
