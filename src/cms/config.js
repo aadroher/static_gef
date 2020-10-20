@@ -120,7 +120,7 @@ const i18nConfig = {
 };
 
 const config = {
-  // local_backend: true,
+  local_backend: true,
   locale: 'ca',
   publish_mode: 'editorial_workflow',
   load_config_file: false,
