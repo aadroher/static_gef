@@ -86,6 +86,8 @@ const createPages = ({ graphql, actions: { createPage } }) =>
             component: resolve(`./src/templates/${pluralContentType}.jsx`),
             context: {
               id: indexPageId,
+              isIndex: true,
+              languageCode,
               collectionIds: itemPagesData.map(({ id }) => id)
             }
           });
@@ -96,7 +98,9 @@ const createPages = ({ graphql, actions: { createPage } }) =>
               path: getItemPagePath(relativePath),
               component: resolve(`./src/templates/${contentType}.jsx`),
               context: {
-                id
+                id,
+                languageCode,
+                isIndex: false
               }
             });
           });

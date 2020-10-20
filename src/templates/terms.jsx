@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 
-import MainLayout from '../layouts/MainLayout';
+import MainLayout from '../layouts/main-layout';
 
 export const query = graphql`
   query Terms($id: String, $collectionIds: [String]) {
@@ -32,7 +32,7 @@ export const query = graphql`
 
 const Terms = ({ data }) => (
   <div className="activities-page">
-    <h1>Activitats</h1>
+    <h1>Vocabulari</h1>
     <pre>{JSON.stringify(data, null, 2)}</pre>
   </div>
 );

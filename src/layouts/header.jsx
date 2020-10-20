@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import MainMenu from './main-menu';
-
-const HeadingContainer = styled.div`
+const Heading = styled.div`
   background-color: dimgray;
   color: white;
   font-size: 0.5rem;
@@ -16,21 +14,14 @@ const SiteTitle = styled.h1`
   margin: 0 1rem;
 `;
 
-const Heading = () => (
-  <HeadingContainer className="header__heading">
-    <SiteTitle className="header__site-title">
-      Grup d'Estudis Fenomenològics
-    </SiteTitle>
-  </HeadingContainer>
-);
-
-const HeaderContainer = styled.header``;
-
-const Header = data => (
-  <HeaderContainer className="header">
-    <Heading />
-    <MainMenu {...data} />
-  </HeaderContainer>
+const Header = () => (
+  <>
+    <Heading>
+      <SiteTitle className="header__site-title">
+        Grup d&apos;Estudis Fenomenològics
+      </SiteTitle>
+    </Heading>
+  </>
 );
 
 export default Header;
