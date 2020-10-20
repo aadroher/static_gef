@@ -40,7 +40,7 @@ const parseActivityPage = pageData => {
   const fileContents = `${frontMatter}\n\n${body}`;
   const formatedCreatedAt = moment(createdAt).format('YYYY-MM-DD');
 
-  const filePathPrefix = `/data/collections/${languageCode}/activities/${formatedCreatedAt}_`;
+  const filePathPrefix = `/data/collections/activities/${languageCode}/${formatedCreatedAt}_`;
 
   const kebabedTitle = unidecode(caseFormater.kebab(title)).replace('"', '');
   const filePath = `${filePathPrefix}${kebabedTitle}.md`;
@@ -69,7 +69,7 @@ const buildIndexPageData = ({ originUrl, languageCode, title, body }) => {
   const frontMatter = `---\n${yaml.stringify(frontMatterData)}---`;
   const fileContents = `${frontMatter}\n\n${body}`;
 
-  const filePathPrefix = `/data/collections/${languageCode}/pages/`;
+  const filePathPrefix = `/data/collections/pages/${languageCode}/`;
   const filePath = `${filePathPrefix}activities.md`;
 
   return {
