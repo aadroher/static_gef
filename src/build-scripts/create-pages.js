@@ -6,13 +6,10 @@ const languageCodes = ['ca', 'en', 'es'];
 const contentTypes = ['activity', 'term'];
 
 const collectionPageQuery = /* GraphQL */ `
-  query($languageCode: String, $pageCode: String) {
+  query($pageCode: String, $pathLanguageRegexString: String) {
     markdownRemark(
-      frontmatter: {
-        contentType: { eq: "page" }
-        languageCode: { eq: $languageCode }
-        pageCode: { eq: $pageCode }
-      }
+      frontmatter: { contentType: { eq: "page" }, pageCode: { eq: $pageCode } }
+      fileAbsolutePath: { regex: $pathLanguageRegexString }
     ) {
       id
     }
@@ -20,33 +17,33 @@ const collectionPageQuery = /* GraphQL */ `
 `;
 
 const collectionItemsQuery = /* GraphQL */ `
-  query($contentType: String, $languageCode: String) {
+  query($contentType: String, $pathLanguageRegexString: String) {
     allMarkdownRemark(
       filter: {
         frontmatter: {
           visible: { eq: true }
           contentType: { eq: $contentType }
-          languageCode: { eq: $languageCode }
         }
+        fileAbsolutePath: { regex: $pathLanguageRegexString }
       }
     ) {
       nodes {
         id
-        parent {
-          ... on File {
-            relativePath
-          }
-        }
+        fileAbsolutePath
       }
     }
   }
 `;
 
-const getItemPagePath = relativePath =>
-  relativePath
-    .replace('collections', '')
+const getItemPagePath = fileAbsolutePath => {
+  const [, relativePath] = fileAbsolutePath.split('/collections/');
+  const [pluralContentType, languageCode, filename] = relativePath.split('/');
+  const path = [languageCode, pluralContentType, filename]
+    .join('/')
     .replace('_', '/')
     .replace('.md', '');
+  return path;
+};
 
 const createPages = ({ graphql, actions: { createPage } }) =>
   Promise.all(
@@ -54,13 +51,14 @@ const createPages = ({ graphql, actions: { createPage } }) =>
       .map(languageCode =>
         contentTypes.map(async contentType => {
           const pluralContentType = pluralize(contentType);
+          const pathLanguageRegexString = `/\\/${languageCode}\\//i`;
 
           const {
             data: {
               markdownRemark: { id: indexPageId }
             }
           } = await graphql(collectionPageQuery, {
-            languageCode,
+            pathLanguageRegexString,
             pageCode: pluralContentType
           });
 
@@ -70,15 +68,13 @@ const createPages = ({ graphql, actions: { createPage } }) =>
             }
           } = await graphql(collectionItemsQuery, {
             contentType,
-            languageCode
+            pathLanguageRegexString
           });
 
-          const itemPagesData = nodes.map(
-            ({ id, parent: { relativePath } }) => ({
-              id,
-              relativePath
-            })
-          );
+          const itemPagesData = nodes.map(({ id, fileAbsolutePath }) => ({
+            id,
+            fileAbsolutePath
+          }));
 
           // Create collection index page
           createPage({
@@ -93,9 +89,9 @@ const createPages = ({ graphql, actions: { createPage } }) =>
           });
 
           // Create collection item pages
-          itemPagesData.forEach(({ id, relativePath }) => {
+          itemPagesData.forEach(({ id, fileAbsolutePath }) => {
             createPage({
-              path: getItemPagePath(relativePath),
+              path: getItemPagePath(fileAbsolutePath),
               component: resolve(`./src/templates/${contentType}.jsx`),
               context: {
                 id,
