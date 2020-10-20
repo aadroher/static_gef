@@ -5,33 +5,14 @@ const backend = {
 
 const mediaFolder = 'static/images/uploads';
 const publicFolder = '/images/uploads';
+const collectionsFolderPathPrefix = 'data/collections/';
 
 const slug = {
   encoding: 'ascii',
   clean_accents: true
 };
 
-const languages = [
-  {
-    languageCode: 'ca',
-    name: 'Català'
-  },
-  {
-    languageCode: 'es',
-    name: 'Castellà'
-  },
-  {
-    languageCode: 'en',
-    name: 'Anglès'
-  }
-];
-
-const getLanguageFilter = languageCode => ({
-  field: 'languageCode',
-  value: languageCode
-});
-
-const getSlug = (withDate, languageCode) =>
+const getSlug = withDate =>
   `${withDate ? '{{year}}-{{month}}-{{day}}' : ''}_{{slug}}`;
 
 const getContentTypeField = contentType => ({
@@ -47,25 +28,10 @@ const getCreatedAtField = () => ({
   widget: 'datetime'
 });
 
-const getLanguageCodeField = defaultValue => ({
-  name: 'languageCode',
-  label: 'Idioma',
-  widget: 'select',
-  options: [
-    {
-      label: 'Català',
-      value: 'ca'
-    },
-    {
-      label: 'Castellà',
-      value: 'es'
-    },
-    {
-      label: 'Anglès',
-      value: 'en'
-    }
-  ],
-  default: defaultValue
+const getPageCodeField = () => ({
+  name: 'pageCode',
+  widget: 'hidden',
+  required: true
 });
 
 const getVisibleField = () => ({
@@ -79,64 +45,62 @@ const getTitleField = () => ({
   name: 'title',
   label: 'Títol',
   widget: 'string',
-  required: true
+  required: true,
+  i18n: true
 });
 
 const getBodyField = () => ({
   name: 'body',
   label: 'Cos del Text',
-  widget: 'markdown'
+  widget: 'markdown',
+  i18n: true
 });
 
-const getActivitiesSchema = ({ languageCode }) => ({
-  name: `activities_${languageCode}`,
-  label: `Activitats (${languageCode})`,
-  label_singular: `Activitat (${languageCode})`,
-  folder: `data/collections/${languageCode}/activities`,
+const getPagesSchema = () => ({
+  name: 'pages',
+  label: 'Pàgines',
+  label_singular: 'Pàgina',
+  folder: `${collectionsFolderPathPrefix}pages`,
+  create: false,
+  slug: getSlug(false),
+  i18n: true,
+  fields: [
+    getContentTypeField('page'),
+    getPageCodeField(),
+    getTitleField(),
+    getBodyField()
+  ]
+});
+
+const getActivitiesSchema = () => ({
+  name: 'activities',
+  label: 'Activitats',
+  label_singular: 'Activitat',
+  folder: `${collectionsFolderPathPrefix}activities`,
   create: true,
   slug: getSlug(true),
   summary: '{{title}}',
+  i18n: true,
   fields: [
     getContentTypeField('activity'),
     getCreatedAtField(),
-    getLanguageCodeField(languageCode),
     getVisibleField(),
     getTitleField(),
     getBodyField()
   ]
 });
 
-const getPagesSchema = ({ languageCode }) => ({
-  name: `pages_${languageCode}`,
-  label: `Pàgines (${languageCode})`,
-  label_singular: `Pàgina (${languageCode})`,
-  folder: `data/collections/${languageCode}/pages`,
-  create: false,
-  slug: getSlug(false),
-  fields: [
-    getContentTypeField('page'),
-    {
-      name: 'pageCode',
-      widget: 'hidden',
-      required: true
-    },
-    getLanguageCodeField(languageCode),
-    getTitleField(),
-    getBodyField()
-  ]
-});
-
-const getTermsSchema = ({ languageCode }) => ({
-  name: `terms_${languageCode}`,
-  label: `Termes (${languageCode})`,
-  label_singular: `Terme (${languageCode})`,
-  folder: `data/collections/${languageCode}/terms`,
+const getTermsSchema = () => ({
+  name: 'terms',
+  label: 'Termes',
+  label_singular: 'Terme',
+  folder: `${collectionsFolderPathPrefix}terms`,
   create: false,
   slug: getSlug(false),
   summary: '{{title}}',
+  i18n: true,
   fields: [
     getContentTypeField('term'),
-    getLanguageCodeField(languageCode),
     getVisibleField(),
     getTitleField(),
     getBodyField()
@@ -145,9 +109,15 @@ const getTermsSchema = ({ languageCode }) => ({
 
 const schemaGenerators = [getActivitiesSchema, getPagesSchema, getTermsSchema];
 
-const collections = schemaGenerators
-  .map(schemaGenerator => languages.map(schemaGenerator))
-  .flat();
+const collections = schemaGenerators.map(generateSchema => generateSchema());
+
+const i18nConfig = {
+  i18n: {
+    structure: 'multiple_folders',
+    locales: ['ca', 'en', 'es'],
+    default_locale: 'ca'
+  }
+};
 
 const config = {
   // local_backend: true,
@@ -158,6 +128,7 @@ const config = {
   media_folder: mediaFolder,
   public_folder: publicFolder,
   slug,
+  ...i18nConfig,
   collections
 };
 
