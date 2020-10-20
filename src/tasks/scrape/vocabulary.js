@@ -25,7 +25,7 @@ const buildIndexPageData = ({ originUrl, languageCode, title, body }) => {
   const frontMatter = `---\n${yaml.stringify(frontMatterData)}---`;
   const fileContents = `${frontMatter}\n\n${body}`;
 
-  const filePathPrefix = `/data/collections/${languageCode}/pages/`;
+  const filePathPrefix = `/data/collections/pages/${languageCode}/`;
   const filePath = `${filePathPrefix}terms.md`;
 
   return {
@@ -62,7 +62,7 @@ const parseTermPage = pageData => {
   const frontMatter = `---\n${yaml.stringify(frontMatterData)}---`;
   const fileContents = `${frontMatter}\n\n${body}`;
 
-  const filePathPrefix = `/data/collections/${languageCode}/terms/`;
+  const filePathPrefix = `/data/collections/terms/${languageCode}/`;
 
   const kebabedTitle = unidecode(caseFormater.kebab(title)).replace('"', '');
   const filePath = `${filePathPrefix}${kebabedTitle}.md`;
