@@ -8,10 +8,10 @@ const staticQuery = graphql`
       nodes {
         path
         context {
-          id
+          markdownNodeId
           isIndex
           languageCode
-          collectionIds
+          collectionmarkdownNodeIds
         }
       }
     }
