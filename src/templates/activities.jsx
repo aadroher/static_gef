@@ -6,7 +6,7 @@ import MainLayout from '../layouts/main-layout';
 
 export const query = graphql`
   query Activities($id: String, $collectionIds: [String]) {
-    pageMarkdown: markdownRemark(id: { eq: $id }) {
+    meta: markdownRemark(id: { eq: $id }) {
       frontmatter {
         contentType
         languageCode
@@ -15,14 +15,15 @@ export const query = graphql`
       html
       rawMarkdownBody
     }
-    collectionMarkdown: allMarkdownRemark(
+    activities: allMarkdownRemark(
       filter: { id: { in: $collectionIds } }
+      sort: { fields: [frontmatter___createdAt], order: DESC }
     ) {
-      nodes {
+      totalCount
+      records: nodes {
         frontmatter {
           contentType
           createdAt
-          languageCode
           title
         }
         html
@@ -32,10 +33,11 @@ export const query = graphql`
   }
 `;
 
-const Activities = ({ data }) => (
+const Activities = props => (
   <div className="activities-page">
     <h1>Activitats</h1>
-    <pre>{JSON.stringify(data, null, 2)}</pre>
+    <pre>{JSON.stringify(props.pageContext, null, 2)}</pre>
+    <pre>{JSON.stringify(props.data, null, 2)}</pre>
     {/* <div>
         <a name="top"></a>
         {edges.map(
