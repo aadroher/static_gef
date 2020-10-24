@@ -14,12 +14,6 @@ const MenuList = styled.ul`
   & li {
     list-style-position: outside;
     list-style-type: none;
-
-    &.active {
-      background-color: white;
-      text-align: center;
-      width: 5rem;
-    }
   }
 
   & > li + li {
@@ -35,6 +29,8 @@ const getLocale = path => {
 
 const getMenuItemData = ({ locale, mainMenuData }) => mainMenuData[locale];
 
+const MainMenuNav = styled.nav``;
+
 const MainMenu = () => {
   const {
     location: { pathname: currentPath }
@@ -43,7 +39,7 @@ const MainMenu = () => {
   const menuItemData = getMenuItemData({ locale, mainMenuData });
 
   return (
-    <nav>
+    <MainMenuNav>
       <MenuList>
         {menuItemData.map(({ path, name }) => (
           <li key={path}>
@@ -55,8 +51,8 @@ const MainMenu = () => {
           </li>
         ))}
       </MenuList>
-    </nav>
+    </MainMenuNav>
   );
 };
 
-export default MainMenu;
+export default styled(MainMenu)``;

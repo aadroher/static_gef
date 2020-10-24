@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import styledNormalize from 'styled-normalize';
 
-import Header from './header';
-import MainMenu from '../components/common/main-menu';
+import Header from '../components/common/header';
 import GlobalContext from '../components/common/global-context';
 
 const GlobalStyles = createGlobalStyle`
@@ -33,10 +32,7 @@ const MainLayout = ({ location, children }) => (
   <GlobalContext.Provider value={{ location }}>
     <GlobalStyles />
     <Header />
-    <ContentWrapper>
-      <MainMenu />
-      {children}
-    </ContentWrapper>
+    <ContentWrapper>{children}</ContentWrapper>
   </GlobalContext.Provider>
 );
 

@@ -3,11 +3,11 @@ import styled, { css } from 'styled-components';
 import { Link } from 'gatsby';
 
 const commonStyles = css`
-  padding: 0.3rem 0;
+  padding: 0.3rem;
 `;
 
 const highlighted = css`
-  border-bottom: solid;
+  border: solid 0.1rem;
 `;
 
 const EnabledLink = styled(Link)`
