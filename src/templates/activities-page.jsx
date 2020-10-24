@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 
-import Activity from '../components/Activity';
+import Activity from '../components/activities/activity';
 import DefaultLayout from '../layouts/default';
 
 export const query = graphql`

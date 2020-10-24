@@ -4,7 +4,7 @@ import { createGlobalStyle } from 'styled-components';
 import styledNormalize from 'styled-normalize';
 
 import Header from './header';
-import MainMenu from './main-menu';
+import MainMenu from '../components/common/main-menu';
 
 const GlobalStyles = createGlobalStyle`
   ${styledNormalize}

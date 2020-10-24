@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 
+import MainMenuLink from './main-menu-link';
+import { load } from 'cheerio';
+
 const staticQuery = graphql`
   query MenuItems {
     indexPages: allSitePage(filter: { context: { isIndex: { eq: true } } }) {
@@ -41,7 +44,20 @@ const MenuList = styled.ul`
   }
 `;
 
-const getUrl = ({ locale, contentType }) => `/${locale}/${contentType}`;
+const getPath = ({ locale, contentType }) => `/${locale}/${contentType}`;
+const getEnabled = ({ currentPath, path }) => currentPath !== path;
+
+const MenuItem = ({ locale, contentType, label, currentPath }) => {
+  const path = getPath({ locale, contentType });
+  const enabled = getEnabled({ currentPath, path });
+  return (
+    <li>
+      <MainMenuLink path={path} enabled={enabled}>
+        {label}
+      </MainMenuLink>
+    </li>
+  );
+};
 
 const MainMenu = ({ locale }) => {
   const data = useStaticQuery(staticQuery);
@@ -50,12 +66,8 @@ const MainMenu = ({ locale }) => {
   return (
     <nav>
       <MenuList>
-        <li>
-          <a href={getUrl({ locale, contentType: 'activities' })}>Activitats</a>
-        </li>
-        <li>
-          <a href={getUrl({ locale, contentType: 'terms' })}>Vocabulari</a>
-        </li>
+        <MenuItem locale={locale} contentType="activities" label="Activitats" />
+        <MenuItem locale={locale} contentType="activities" label="Vocabulari" />
       </MenuList>
     </nav>
   );
