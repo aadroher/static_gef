@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 
 import MainMenuLink from './main-menu-link';
-import { load } from 'cheerio';
 
 const staticQuery = graphql`
   query MenuItems {
@@ -11,10 +10,10 @@ const staticQuery = graphql`
       nodes {
         path
         context {
-          id
+          markdownNodeId
           isIndex
           languageCode
-          collectionIds
+          collectionmarkdownNodeIds
         }
       }
     }

@@ -5,8 +5,11 @@ import Activity from '../components/activities/activity';
 import DefaultLayout from '../layouts/default';
 
 export const query = graphql`
-  query Activities($id: String, $collectionIds: [String]) {
-    meta: markdownRemark(id: { eq: $id }) {
+  query Activities(
+    $markdownNodeId: String
+    $collectionmarkdownNodeIds: [String]
+  ) {
+    meta: markdownRemark(id: { eq: $markdownNodeId }) {
       frontmatter {
         contentType
         languageCode
@@ -15,12 +18,24 @@ export const query = graphql`
       html
       rawMarkdownBody
     }
+    activityPages: allSitePage(
+      filter: {
+        context: { markdownNodeId: { in: $collectionmarkdownNodeIds } }
+      }
+    ) {
+      nodes {
+        path
+        context {
+          markdownNodeId
+        }
+      }
+    }
     activities: allMarkdownRemark(
-      filter: { id: { in: $collectionIds } }
+      filter: { id: { in: $collectionmarkdownNodeIds } }
       sort: { fields: [frontmatter___createdAt], order: DESC }
     ) {
       totalCount
-      records: nodes {
+      nodes {
         frontmatter {
           contentType
           createdAt
@@ -28,6 +43,15 @@ export const query = graphql`
         }
         html
         rawMarkdownBody
+        internal {
+          content
+          description
+          ignoreType
+          mediaType
+        }
+        children {
+          id
+        }
       }
     }
   }
