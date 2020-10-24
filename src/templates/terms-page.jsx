@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 
-import MainLayout from '../layouts/main-layout';
+import MainLayout from '../layouts/default';
 
 export const query = graphql`
   query Terms($id: String, $collectionIds: [String]) {

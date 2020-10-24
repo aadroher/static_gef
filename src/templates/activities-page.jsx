@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 
 import Activity from '../components/Activity';
-import MainLayout from '../layouts/main-layout';
+import DefaultLayout from '../layouts/default';
 
 export const query = graphql`
   query Activities($id: String, $collectionIds: [String]) {
@@ -58,9 +58,9 @@ const Activities = props => (
 );
 
 const ActivitiesPage = props => (
-  <MainLayout>
+  <DefaultLayout>
     <Activities {...props} />
-  </MainLayout>
+  </DefaultLayout>
 );
 
 export default ActivitiesPage;

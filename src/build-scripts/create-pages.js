@@ -79,7 +79,7 @@ const createPages = ({ graphql, actions: { createPage } }) =>
           // Create collection index page
           createPage({
             path: `/${languageCode}/${pluralContentType}`,
-            component: resolve(`./src/templates/${pluralContentType}.jsx`),
+            component: resolve(`./src/templates/${pluralContentType}-page.jsx`),
             context: {
               id: indexPageId,
               isIndex: true,
@@ -92,7 +92,7 @@ const createPages = ({ graphql, actions: { createPage } }) =>
           itemPagesData.forEach(({ id, fileAbsolutePath }) => {
             createPage({
               path: getItemPagePath(fileAbsolutePath),
-              component: resolve(`./src/templates/${contentType}.jsx`),
+              component: resolve(`./src/templates/${contentType}-page.jsx`),
               context: {
                 id,
                 languageCode,
