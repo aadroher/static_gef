@@ -4,8 +4,8 @@ import { graphql } from 'gatsby';
 import MainLayout from '../layouts/default';
 
 export const query = graphql`
-  query Terms($id: String, $collectionIds: [String]) {
-    pageMarkdown: markdownRemark(id: { eq: $id }) {
+  query Terms($markdownNodeId: String, $collectionmarkdownNodeIds: [String]) {
+    meta: markdownRemark(id: { eq: $markdownNodeId }) {
       frontmatter {
         contentType
         languageCode
@@ -14,24 +14,47 @@ export const query = graphql`
       html
       rawMarkdownBody
     }
-    collectionMarkdown: allMarkdownRemark(
-      filter: { id: { in: $collectionIds } }
+    termPages: allSitePage(
+      filter: {
+        context: { markdownNodeId: { in: $collectionmarkdownNodeIds } }
+      }
     ) {
+      nodes {
+        path
+        context {
+          markdownNodeId
+        }
+      }
+    }
+    terms: allMarkdownRemark(
+      filter: { id: { in: $collectionmarkdownNodeIds } }
+      sort: { fields: [frontmatter___createdAt], order: DESC }
+    ) {
+      totalCount
       nodes {
         frontmatter {
           contentType
-          languageCode
+          createdAt
           title
         }
         html
         rawMarkdownBody
+        internal {
+          content
+          description
+          ignoreType
+          mediaType
+        }
+        children {
+          id
+        }
       }
     }
   }
 `;
 
 const Terms = ({ data }) => (
-  <div className="activities-page">
+  <div className="terms-page">
     <h1>Vocabulari</h1>
     <pre>{JSON.stringify(data, null, 2)}</pre>
   </div>

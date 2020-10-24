@@ -5,7 +5,7 @@ import { graphql, useStaticQuery } from 'gatsby';
 import MainMenuLink from './main-menu-link';
 
 const staticQuery = graphql`
-  query MenuItems {
+  query MainMenu {
     indexPages: allSitePage(filter: { context: { isIndex: { eq: true } } }) {
       nodes {
         path
@@ -14,6 +14,20 @@ const staticQuery = graphql`
           isIndex
           languageCode
           collectionmarkdownNodeIds
+        }
+      }
+    }
+    markdownContent: allMarkdownRemark {
+      nodes {
+        id
+        frontmatter {
+          title
+          languageCode
+        }
+        parent {
+          ... on File {
+            relativePath
+          }
         }
       }
     }
@@ -58,8 +72,9 @@ const MenuItem = ({ locale, contentType, label, currentPath }) => {
   );
 };
 
-const MainMenu = ({ locale }) => {
+const MainMenu = ({ locale, ...props }) => {
   const data = useStaticQuery(staticQuery);
+  console.log(props);
   console.log(data);
 
   return (
