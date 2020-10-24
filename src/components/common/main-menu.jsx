@@ -14,7 +14,6 @@ const MenuList = styled.ul`
   & li {
     list-style-position: outside;
     list-style-type: none;
-    padding: 1rem 0;
 
     &.active {
       background-color: white;
