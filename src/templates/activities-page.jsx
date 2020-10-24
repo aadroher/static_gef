@@ -57,33 +57,35 @@ export const query = graphql`
   }
 `;
 
-const Activities = props => (
-  <div className="activities-page">
-    <h1>Activitats</h1>
-    <pre>{JSON.stringify(props.pageContext, null, 2)}</pre>
-    <pre>{JSON.stringify(props.data, null, 2)}</pre>
-    {/* <div>
-        <a name="top"></a>
-        {edges.map(
-          ({
-            node: {
-              childMarkdownRemark: {
-                frontmatter: { title },
-                html
-              }
+const Activities = props => {
+  console.log(props);
+  return (
+    <div className="activities-page">
+      <h1>Activitats</h1>
+      <pre>{JSON.stringify(props.pageContext, null, 2)}</pre>
+      <pre>{JSON.stringify(props.data, null, 2)}</pre>
+      {/* <div>
+      <a name="top"></a>
+      {edges.map(
+        ({
+          node: {
+            childMarkdownRemark: {
+              frontmatter: { title },
+              html
             }
-          }) => {
-            const key = md5(title + html);
-            return <Activity key={key} title={title} html={html} />;
           }
-        )}
-      </div> */}
-  </div>
-);
-
-const ActivitiesPage = props => (
-  <DefaultLayout>
-    <Activities {...props} />
+        }) => {
+          const key = md5(title + html);
+          return <Activity key={key} title={title} html={html} />;
+        }
+      )}
+    </div> */}
+    </div>
+  );
+};
+const ActivitiesPage = ({ location, data, pageContext }) => (
+  <DefaultLayout location={location}>
+    <Activities data={data} pageContext={pageContext} />
   </DefaultLayout>
 );
 

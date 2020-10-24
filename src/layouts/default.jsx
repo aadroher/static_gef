@@ -5,6 +5,7 @@ import styledNormalize from 'styled-normalize';
 
 import Header from './header';
 import MainMenu from '../components/common/main-menu';
+import GlobalContext from '../components/common/global-context';
 
 const GlobalStyles = createGlobalStyle`
   ${styledNormalize}
@@ -28,15 +29,15 @@ const ContentWrapper = styled.div`
   padding: 1rem;
 `;
 
-const MainLayout = ({ children }) => (
-  <>
+const MainLayout = ({ location, children }) => (
+  <GlobalContext.Provider value={{ location }}>
     <GlobalStyles />
     <Header />
     <ContentWrapper>
-      <MainMenu locale="ca" />
+      <MainMenu />
       {children}
     </ContentWrapper>
-  </>
+  </GlobalContext.Provider>
 );
 
 export default MainLayout;

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 
 import MainMenuLink from './main-menu-link';
+import GlobalContext from './global-context';
 
 const staticQuery = graphql`
   query MainMenu {
@@ -21,6 +22,7 @@ const staticQuery = graphql`
       nodes {
         id
         frontmatter {
+          contentType
           title
           languageCode
         }
@@ -57,31 +59,46 @@ const MenuList = styled.ul`
   }
 `;
 
-const getPath = ({ locale, contentType }) => `/${locale}/${contentType}`;
 const getEnabled = ({ currentPath, path }) => currentPath !== path;
-
-const MenuItem = ({ locale, contentType, label, currentPath }) => {
-  const path = getPath({ locale, contentType });
-  const enabled = getEnabled({ currentPath, path });
-  return (
-    <li>
-      <MainMenuLink path={path} enabled={enabled}>
-        {label}
-      </MainMenuLink>
-    </li>
-  );
+const getLocale = path => {
+  const [, localeUrlPathComponent] = path.split('/');
+  return localeUrlPathComponent;
 };
 
-const MainMenu = ({ locale, ...props }) => {
-  const data = useStaticQuery(staticQuery);
-  console.log(props);
-  console.log(data);
+const getMenuItemData = ({ locale, indexPages, markdownContent }) =>
+  indexPages.nodes
+    .filter(({ path }) => locale === getLocale(path))
+    .map(({ path, context: { markdownNodeId } }) => {
+      const {
+        frontmatter: { title: label }
+      } = markdownContent.nodes.find(({ id }) => id === markdownNodeId);
+
+      return {
+        path,
+        label
+      };
+    });
+
+const MainMenu = () => {
+  const {
+    location: { pathname: currentPath }
+  } = useContext(GlobalContext);
+  const staticQueryData = useStaticQuery(staticQuery);
+  const locale = getLocale(currentPath);
+  const menuItemData = getMenuItemData({ locale, ...staticQueryData });
 
   return (
     <nav>
       <MenuList>
-        <MenuItem locale={locale} contentType="activities" label="Activitats" />
-        <MenuItem locale={locale} contentType="activities" label="Vocabulari" />
+        {menuItemData.map(({ path, label }) => (
+          <li key={path}>
+            <MainMenuLink
+              path={path}
+              enabled={getEnabled({ currentPath, path })}
+              label={label}
+            />
+          </li>
+        ))}
       </MenuList>
     </nav>
   );
