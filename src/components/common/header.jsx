@@ -8,24 +8,22 @@ const Heading = styled.div`
   width: 100%;
 `;
 
-const SiteTitle = styled.h1`
-  margin: 0;
-  font-size: 1.2rem;
-`;
+const SiteTitle = styled.h1``;
 
 const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   margin: auto;
   max-width: 60rem;
-  nav {
-    margin-top: 1rem;
-  }
 `;
+
+const StyledMainMenu = styled(MainMenu)``;
 
 const Header = () => (
   <Heading>
     <ContentWrapper>
       <SiteTitle>Grup d&apos;Estudis Fenomenològics</SiteTitle>
-      <MainMenu />
+      <StyledMainMenu />
     </ContentWrapper>
   </Heading>
 );

@@ -6,24 +6,23 @@ import GlobalContext from './global-context';
 import mainMenuData from '../../../data/menus/main.yml';
 
 const MenuList = styled.ul`
-  margin: 0;
-  padding: 0;
+  /* margin: 0;
+  padding: 0; */
 
   display: flex;
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
 
   & li {
+    display: flex;
     list-style-position: outside;
     list-style-type: none;
-
-    &.active {
-      background-color: white;
-      text-align: center;
-      width: 5rem;
-    }
   }
 
   & > li + li {
-    margin-left: 1rem;
+    margin-left: 0.3rem;
   }
 `;
 
@@ -35,7 +34,7 @@ const getLocale = path => {
 
 const getMenuItemData = ({ locale, mainMenuData }) => mainMenuData[locale];
 
-const MainMenu = () => {
+const MainMenu = ({ className }) => {
   const {
     location: { pathname: currentPath }
   } = useContext(GlobalContext);
@@ -43,7 +42,7 @@ const MainMenu = () => {
   const menuItemData = getMenuItemData({ locale, mainMenuData });
 
   return (
-    <nav>
+    <nav className={className}>
       <MenuList>
         {menuItemData.map(({ path, name }) => (
           <li key={path}>

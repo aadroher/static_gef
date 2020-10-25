@@ -3,15 +3,22 @@ import styled, { css } from 'styled-components';
 import { Link } from 'gatsby';
 
 const commonStyles = css`
-  padding: 0.3rem;
+  padding: 0.5rem 1rem;
+  background-color: silver;
+  color: black;
+  text-decoration: none;
 `;
 
 const highlighted = css`
-  border: solid 0.1rem;
+  background-color: white;
+  color: black;
 `;
 
 const EnabledLink = styled(Link)`
   ${commonStyles}
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 const DisabledLink = styled.span`
   ${commonStyles}
