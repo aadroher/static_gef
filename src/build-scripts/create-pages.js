@@ -79,22 +79,22 @@ const createPages = ({ graphql, actions: { createPage } }) =>
           // Create collection index page
           createPage({
             path: `/${languageCode}/${pluralContentType}`,
-            component: resolve(`./src/templates/${pluralContentType}.jsx`),
+            component: resolve(`./src/templates/${pluralContentType}-page.jsx`),
             context: {
-              id: indexPageId,
+              markdownNodeId: indexPageId,
               isIndex: true,
               languageCode,
-              collectionIds: itemPagesData.map(({ id }) => id)
+              collectionmarkdownNodeIds: itemPagesData.map(({ id }) => id)
             }
           });
 
           // Create collection item pages
-          itemPagesData.forEach(({ id, fileAbsolutePath }) => {
+          itemPagesData.forEach(({ id: markdownNodeId, fileAbsolutePath }) => {
             createPage({
               path: getItemPagePath(fileAbsolutePath),
-              component: resolve(`./src/templates/${contentType}.jsx`),
+              component: resolve(`./src/templates/${contentType}-page.jsx`),
               context: {
-                id,
+                markdownNodeId,
                 languageCode,
                 isIndex: false
               }

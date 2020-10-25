@@ -1,0 +1,15 @@
+ca:
+  - name: Activitats
+    path: /ca/activities
+  - name: Vocabulari
+    path: /ca/terms
+en:
+  - name: Activities
+    path: /en/activities
+  - name: Vocabulary
+    path: /en/terms
+es:
+  - name: Actividades
+    path: /es/activities
+  - name: Vocabulario
+    path: /es/terms

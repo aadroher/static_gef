@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import styledNormalize from 'styled-normalize';
 
-import Header from './header';
-import MainMenu from './main-menu';
+import Header from '../components/common/header';
+import GlobalContext from '../components/common/global-context';
 
 const GlobalStyles = createGlobalStyle`
   ${styledNormalize}
@@ -28,15 +28,12 @@ const ContentWrapper = styled.div`
   padding: 1rem;
 `;
 
-const MainLayout = ({ children }) => (
-  <>
+const MainLayout = ({ location, children }) => (
+  <GlobalContext.Provider value={{ location }}>
     <GlobalStyles />
     <Header />
-    <ContentWrapper>
-      <MainMenu locale="ca" />
-      {children}
-    </ContentWrapper>
-  </>
+    <ContentWrapper>{children}</ContentWrapper>
+  </GlobalContext.Provider>
 );
 
 export default MainLayout;
