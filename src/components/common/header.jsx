@@ -16,7 +16,7 @@ const SiteTitle = styled.h1`
 const ContentWrapper = styled.div`
   margin: auto;
   max-width: 60rem;
-  ${MainMenu} {
+  nav {
     margin-top: 1rem;
   }
 `;
